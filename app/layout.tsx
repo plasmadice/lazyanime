@@ -24,7 +24,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           <DrawerHeader>
             <main>
               {children}
-              <Analytics debug={false} />
+              <Analytics />
             </main>
           </DrawerHeader>
         </AuthContext>
