@@ -1,0 +1,39 @@
+{
+  "name": "lazyanime",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "localStart": "next start -H 127.0.0.1",
+    "lint": "next lint",
+    "clean": "rm -rf .next ./node_modules /static && yarn"
+  },
+  "dependencies": {
+    "@smakss/react-scroll-direction": "^2.1.1",
+    "@tailwindcss/typography": "^0.5.9",
+    "@types/node": "20.2.3",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "@vercel/analytics": "^1.0.1",
+    "autoprefixer": "10.4.14",
+    "daisyui": "^2.51.6",
+    "encoding": "^0.1.13",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.3",
+    "graphql": "^16.6.0",
+    "graphql-request": "^6.1.0",
+    "html-react-parser": "^3.0.16",
+    "next": "13.4.3",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "swr": "^2.1.5",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {}
+}

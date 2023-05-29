@@ -1,0 +1,61 @@
+"use client"
+import { useState } from "react"
+import parse from "html-react-parser"
+
+type Props = {
+  description: string | null
+  className?: string
+}
+
+export const DetailDescription = ({ description, className }: Props) => {
+  const [isExpanded, setIsExpanded] = useState(false)
+  let shortDescription = ""
+
+  // Adds shortDescription if needed
+  if (
+    description?.split("<br>")?.length &&
+    description?.split("<br>")?.length > 5
+  ) {
+    let splitDescription = description?.split("<br>")
+    // console.log(splitDescription)
+    shortDescription = splitDescription.slice(0, 5).join("<br>").trim()
+
+    while (
+      shortDescription.lastIndexOf("<br>") ===
+      shortDescription.length - 4
+    ) {
+      // Removes last <br> if it is the last character to allow inline + More
+      shortDescription = shortDescription
+        .slice(0, shortDescription.length - 4)
+        .trim()
+    }
+
+    shortDescription += "..."
+  }
+
+  const handleExpand = () => {
+    setIsExpanded((prev) => !prev)
+  }
+
+  if (!description) {
+    description = "No description available."
+  }
+
+  return (
+    <div className={`${className ? ` ${className}` : ""}`}>
+      <p className="">
+        {!isExpanded && shortDescription
+          ? parse(shortDescription as string)
+          : parse(description as string)}
+        <span
+          onClick={handleExpand}
+          className="text-white pl-2 text-xl cursor-pointer !inline-block select-none"
+        >
+          {/* If there is no short description -> Create text depending on isExpanded */}
+          {!shortDescription ? "" : isExpanded ? "...Less" : "More"}
+        </span>
+      </p>
+      <span className="p-0 col-auto row-auto w-fit min-h-fit"></span>
+    </div>
+  )
+}
