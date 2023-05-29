@@ -6,7 +6,7 @@ import { authOptions } from "./api/auth/[...nextauth]/route"
 import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
-  title: "lazyanime",
+  title: "LazyAnime",
   description: "Anime stuff",
 }
 

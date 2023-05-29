@@ -14,11 +14,11 @@ export function Row({
     <div className="my-4">
       <h2 className="text-xl font-normal pl-6 py-2 select-none">{rowName}</h2>
       <div
-        className={`h-full overflow-auto${
+        className={`h-full${
           className.length ? ` ${className}` : ""
         }`}
       >
-        <div className="flex pl-4 space-x-4 h-full">
+        <div className="flex pl-4 space-x-4 h-full overflow-x-scroll">
           {animes.map((item: Anime) => (
             <Card key={item.id} anime={item} />
           ))}

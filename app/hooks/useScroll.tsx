@@ -1,56 +1,56 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react"
 import useDetectScroll, {
   Axis,
   Direction,
-} from "@smakss/react-scroll-direction";
+} from "@smakss/react-scroll-direction"
 
 type ScrollProps = {
-  thr?: number;
-  axis?: Axis;
-  scrollUp?: Direction;
-  scrollDown?: Direction;
-  still?: Direction;
-};
+  thr?: number
+  axis?: Axis
+  scrollUp?: Direction
+  scrollDown?: Direction
+  still?: Direction
+}
 
 interface ExtraScrollProps extends ScrollProps {
-  activeAfter?: number;
+  activeAfter?: number
 }
 
 export const useScroll = (options: ExtraScrollProps) => {
-  const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
-  const [scrollY, setScrollY] = useState<number>(0);
+  const [isActive, setIsActive] = useState<boolean | undefined>(undefined)
+  const [scrollY, setScrollY] = useState<number>(0)
+  const debouncedTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const debouncedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  let activeAfter = options.activeAfter || 0;
-  let scrollDirection = Direction.Still;
+  let activeAfter = options.activeAfter || 0
+  let scrollDirection = Direction.Still
 
   if (typeof window !== "undefined") {
-    scrollDirection = useDetectScroll(options);
+    scrollDirection = useDetectScroll(options)
   }
 
   const onScroll = useCallback(() => {
-    if (typeof window !== "undefined") {
-      if (debouncedTimeoutRef.current) {
-        clearTimeout(debouncedTimeoutRef.current);
-      }
-
-      debouncedTimeoutRef.current = setTimeout(() => {
-        setScrollY(window.scrollY);
-      }, 200);
+    if (debouncedTimeoutRef.current) {
+      clearTimeout(debouncedTimeoutRef.current)
     }
-  }, []);
+
+    if (typeof window !== "undefined") {
+      debouncedTimeoutRef.current = setTimeout(() => {
+        setScrollY(window.scrollY)
+      }, 200)
+    }
+  }, [])
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("scroll", onScroll, { passive: true })
       return () => {
-        window.removeEventListener("scroll", onScroll);
-      };
+        window.removeEventListener("scroll", onScroll)
+      }
     }
-  }, [onScroll]);
+  }, [onScroll])
 
   useEffect(() => {
     if (
@@ -58,11 +58,11 @@ export const useScroll = (options: ExtraScrollProps) => {
       scrollY > activeAfter &&
       scrollDirection === Direction.Down
     ) {
-      setIsActive(true);
+      setIsActive(true)
     } else if (isActive && scrollDirection === Direction.Up) {
-      setIsActive(false);
+      setIsActive(false)
     }
-  }, [isActive, scrollY, activeAfter, scrollDirection]);
+  }, [isActive, scrollY, activeAfter, scrollDirection])
 
-  return { scrollDirection, isActive };
-};
+  return { scrollDirection, isActive }
+}

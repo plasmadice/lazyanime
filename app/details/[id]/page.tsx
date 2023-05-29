@@ -132,18 +132,15 @@ export default async function page({ params }: { params: { id: number } }) {
                 <h2 className="text-base font-normal">Related Anime</h2>
                 <ul className="flex flex-col gap-4 max-h-48 h-min overflow-y-auto">
                   {anime.relations.edges.map((edge) => (
-                    <Link
-                      className="items-center no-underline"
-                      href={`/details/${edge.node.id}`}
-                    >
-                      <li
-                        key={edge.node.id}
-                        className="mb-1 list-none items-center"
+                    <li key={edge.node.id} className="mb-1 list-none items-center">
+                      <Link
+                        className="items-center no-underline"
+                        href={`/details/${edge.node.id}`}
                       >
                         {edge.relationType}:{" "}
                         {edge.node.title.english || edge.node.title.romaji}
-                      </li>
-                    </Link>
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>

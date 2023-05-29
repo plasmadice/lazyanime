@@ -38,7 +38,7 @@ export const useSearch = (query: string | null) => {
     }, 500)
 
     return () => clearTimeout(getData)
-  }, [query])
+  }, [query, route])
 
   return useSWR<Anime[]>(
     route,
