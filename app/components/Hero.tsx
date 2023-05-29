@@ -34,7 +34,7 @@ export function Hero({
     <div className={`hero container mx-auto antialiased${className ? ` ${className}` : ""}`}>
       {/* Backgrouind Hero Image */}
       <div
-        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-[30vh] md:h-[50vh]"
+        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-[30vh] md:h-full"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url(${anime.coverImage.extraLarge})`,
           backgroundSize: "cover",

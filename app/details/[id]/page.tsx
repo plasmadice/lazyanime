@@ -44,16 +44,15 @@ export default async function page({ params }: { params: { id: number } }) {
       <div
         className="grid grid-cols-1 md:grid-cols-5 mb-6 p-6 mx-auto"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${anime.coverImage.extraLarge})`,
+          backgroundImage: `linear-gradient(to bottom, rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 0.7)), url(${anime.coverImage.extraLarge})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          minHeight: "100vh",
         }}
       >
         <Image
           width={200}
           height={300}
-          className="w-10/12 rounded-lg col-span-2 justify-self-center"
+          className="w-10/12 max-w-md rounded-lg col-span-2 justify-self-center"
           src={String(anime.coverImage.extraLarge)}
           alt={String(
             anime.title.english || anime.title.romaji || anime.title.native

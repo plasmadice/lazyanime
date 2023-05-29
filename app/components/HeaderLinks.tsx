@@ -2,12 +2,9 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 
-type Props = {
-  className?: string
-}
-
-const HeaderLinks = ({ className }: Props) => {
+const HeaderLinks = () => {
   const { data: session } = useSession()
   
   const [animeId, setAnimeId] = useState<number>(1)
@@ -62,13 +59,12 @@ const HeaderLinks = ({ className }: Props) => {
         </>
       ) : null}
       <li>
-        <Link
-          prefetch={false}
+        <button
           className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"
-          href={`/api/auth/${session ? "signout" : "signin"}`}
+          onClick={() => session ? signOut() : signIn() }
         >
           {session ? "Sign Out" : "Sign In"}
-        </Link>
+        </button>
       </li>
       {session?.user ||
       (!session?.user && process.env.NODE_ENV === "development") ? (

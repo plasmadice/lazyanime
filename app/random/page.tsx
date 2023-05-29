@@ -16,5 +16,3 @@ export default async function page() {
     redirect(`/details/${anime}`)
   }
 }
-
-// TODO: Possibly refactor to not be a route. Redirecting may be jarring

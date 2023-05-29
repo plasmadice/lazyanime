@@ -1,7 +1,7 @@
 import { gql, request } from "graphql-request"
 import { MediaSort, AnimeDetails, AnimeResponse } from "../types"
-import { getServerSession } from "next-auth/next"
 import { type Session } from "next-auth"
+import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 interface AnimeSession extends Session {
@@ -206,7 +206,7 @@ export const quickCategory = async (sortMethod: MediaSort) => {
   return res?.Page?.media
 }
 
-// Used in /random page, may refactor to a redirect hook
+// Used in /random page
 const getRandomAnime = gql`
   query getRandomAnime($page: Int) {
     Page(page: $page) {
@@ -216,14 +216,30 @@ const getRandomAnime = gql`
     }
   }
 `
+const getRandomCleanAnime = gql`
+  query getRandomAnime($page: Int) {
+    Page(page: $page) {
+      media(type: ANIME, isAdult: false) {
+        id
+      }
+    }
+  }
+`
+
 export const randomAnime = async () => {
+  const cleanRandomNumber = Math.floor(Math.random() * 375) + 1
   const randomNumber = Math.floor(Math.random() * 375) + 1
+  const session = await getSession()
+  const isAdultFlag = session?.isAdult || false
+  const template = isAdultFlag ? getRandomAnime : getRandomCleanAnime
 
   const res: any = await request(
     process.env.GRAPHQL_API_URL as string,
     getRandomAnime,
     { page: randomNumber }
   )
+
+  console.log('Page has data: ', res?.Page?.media.length > 0)
 
   const media = res?.Page?.media
   // retrieve a random ID from the list of IDs

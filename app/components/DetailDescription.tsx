@@ -7,6 +7,9 @@ type Props = {
   className?: string
 }
 
+/**
+ * Split a long description into a short description and a long description with a "More" button.
+ */
 export const DetailDescription = ({ description, className }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false)
   let shortDescription = ""
@@ -14,17 +17,17 @@ export const DetailDescription = ({ description, className }: Props) => {
   // Adds shortDescription if needed
   if (
     description?.split("<br>")?.length &&
-    description?.split("<br>")?.length > 5
+    description?.split("<br>")?.length > 4
   ) {
-    let splitDescription = description?.split("<br>")
-    // console.log(splitDescription)
-    shortDescription = splitDescription.slice(0, 5).join("<br>").trim()
 
+    let splitDescription = description?.split("<br>")
+    shortDescription = splitDescription.slice(0, 4).join("<br>").trim()
+
+    // Removes last <br> if it is the last character to allow inline + More
     while (
       shortDescription.lastIndexOf("<br>") ===
       shortDescription.length - 4
     ) {
-      // Removes last <br> if it is the last character to allow inline + More
       shortDescription = shortDescription
         .slice(0, shortDescription.length - 4)
         .trim()
