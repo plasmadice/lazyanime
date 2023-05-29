@@ -16,6 +16,7 @@ export function Footer() {
           <br />
           No data is stored. All information is retrieved from third parties.
         </p>
+        <p>Permissions are controlled by discord roles</p>
       </div>
 
       <div>

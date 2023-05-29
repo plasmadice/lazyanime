@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LazyAnime
 
-## Getting Started
+LazyAnime is an anime information display project that aims to bring together the rich and dynamic data of AniList 2.0 using GraphQL API. Its design inspiration is taken from popular streaming websites and it integrates the role-based permissions controlled by Discord roles. It leverages `next-auth` for robust, secure and straightforward authentication.
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribution](#contribution)
+- [Planned Additions](#planned-additions)
+
+## Features
+
+- Full integration with AniList 2.0's GraphQL API for a robust set of anime data.
+- Inspired by popular streaming website design for an intuitive and familiar user interface.
+- Permissions are controlled by Discord roles for a manageable and secure user experience.
+- Authentication powered by `next-auth`, adding a layer of security and ease of use.
+
+## Installation
+
+```sh
+# Clone the repository
+git clone https://github.com/username/lazyanime.git
+
+# Move into the new directory
+cd lazyanime
+
+# Install dependencies
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Replace username with your GitHub username.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+Replace the values in the `.env.example` file. `NEXTAUTH_SECRET` and `NEXTAUTH_URL` are required if you want to use bare-minimum auth. `DISCORD_SERVER_ID` and 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`DISCORD_ENTRY_ROLE` are required if you want to use Discord role entry. Users must have the `roleID` in that server in order to log in.
 
-## Learn More
+Before running the application, make sure to set up the environment variables correctly for AniList 2.0 GraphQL API, Discord roles and `next-auth`. Check `.env.example` for the required environment variables.
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+# Run the application
+yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
