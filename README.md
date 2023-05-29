@@ -7,7 +7,6 @@ LazyAnime is an anime information display project that aims to bring together th
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contribution](#contribution)
 - [Planned Additions](#planned-additions)
 
 ## Features
@@ -44,4 +43,10 @@ Before running the application, make sure to set up the environment variables co
 # Run the application
 yarn start
 ```
+
+## Planned Additions
+
+- Re-integration of [consumet](https://github.com/consumet/consumet.ts) as a source for HTTP streaming anime. We believe this will significantly expand the range and versatility of content available to LazyAnime users.
+
+- Addition of Keyboard bindings - specifically "ctrl + k" and "/" to activate search. This is in line with our continuous effort to improve user interaction and provide more fluid navigation around the platform.
 
