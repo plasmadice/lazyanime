@@ -77,6 +77,9 @@ export const authOptions: NextAuthOptions = {
         )
 
         if (targetGuild) {
+          // If the user is a member of the target server, they are authorized
+          isAuthorized = true
+
           // Fetch the member data from our auth server
           const memberResponse = await fetch(
             `https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`,
@@ -90,9 +93,6 @@ export const authOptions: NextAuthOptions = {
           const memberData = await memberResponse.json()
 
           // Check if the member has the required role to sign in
-          isAuthorized = memberData.roles.includes(
-            process.env.DISCORD_ENTRY_ROLE
-          )
 
           isAdult =
             isAuthorized &&

@@ -27,7 +27,7 @@ export function Footer() {
           prefetch={false}
           className="link link-hover"
         >
-          Get In
+          See 18+ content
         </Link>
         <Link href="/" prefetch={false} className="link link-hover">
           About

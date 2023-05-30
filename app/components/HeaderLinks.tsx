@@ -3,10 +3,15 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from "next-auth/react"
+import { AnimeSession } from "@types"
+
+type Props = {
+  data: AnimeSession | null
+}
 
 const HeaderLinks = () => {
-  const { data: session } = useSession()
-  
+  const { data: session }: Props = useSession()
+
   const [animeId, setAnimeId] = useState<number>(1)
 
   // Strange pattern. Fetches data using effect hook and on every /random click
@@ -43,34 +48,30 @@ const HeaderLinks = () => {
         </Link>
       </li>
 
-      {session?.user ||
-      (!session?.user && process.env.NODE_ENV === "development") ? (
-        <>
-          <li>
-            <Link
-              className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"
-              href={`/details/${animeId}`}
-              prefetch={false}
-              onClick={() => fetchRandomAnimeId()}
-            >
-              Random
-            </Link>
-          </li>
-        </>
-      ) : null}
+      <li>
+        <Link
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"
+          href={`/details/${animeId}`}
+          prefetch={false}
+          onClick={() => fetchRandomAnimeId()}
+        >
+          Random
+        </Link>
+      </li>
       <li>
         <button
           className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"
-          onClick={() => session ? signOut() : signIn() }
+          onClick={() => (session ? signOut() : signIn())}
         >
           {session ? "Sign Out" : "Sign In"}
         </button>
       </li>
-      {session?.user ||
-      (!session?.user && process.env.NODE_ENV === "development") ? (
+      {session?.user || !session?.user ? (
         <li>
           <p className="select-none !m-0 px-2">
-            Signed in as {session?.user?.name || "admin"}
+            {session?.user?.name
+              ? `Signed in as ${session?.user?.name}`
+              : "Guest mode"}{session?.isAdult ? " (Adult)" : ""}
           </p>
         </li>
       ) : null}
