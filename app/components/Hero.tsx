@@ -31,10 +31,10 @@ export function Hero({
   className?: string
 }) {
   return (
-    <div className={`hero container mx-auto antialiased h-96${className ? ` ${className}` : ""}`}>
+    <div className={`hero container mx-auto antialiased h-96 mt-4 shadow-lg${className ? ` ${className}` : ""}`}>
       {/* Backgrouind Hero Image */}
       <div
-        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-full"
+        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-full rounded-md"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url(${anime.coverImage.extraLarge})`,
           backgroundSize: "cover",
@@ -43,7 +43,7 @@ export function Hero({
         }}
       ></div>
       {/* Content */}
-      <div className="w-full self-end space-y-2 px-12 relative bottom-0 left-0 right-0 h-fit bg-gradient-to-t from-black to-70% to-transparent p-4">
+      <div className="w-full self-end space-y-2 px-12 relative bottom-0 left-0 right-0 h-fit bg-gradient-to-t from-black to-70% to-transparent p-4 rounded-md">
         <h1 className="text-4xl line-clamp-2 leading-tight text-white max-w-none lg:w-3/5 prose">
           {anime.title.romaji || anime.title.english || anime.title.native}
         </h1>
