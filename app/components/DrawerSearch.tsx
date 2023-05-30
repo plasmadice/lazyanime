@@ -78,7 +78,7 @@ const HeaderSearch = ({ className, drawerRef }: Props = { className: "" }) => {
             value={searchInput}
             ref={inputRef}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="input bg-gray-200 text-gray-900 max-h-6 w-32"
+            className="input border border-gray-300 max-h-6 w-32"
           />
         </form>
         {/* Display search results */}
