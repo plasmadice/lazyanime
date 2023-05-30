@@ -94,9 +94,11 @@ export const authOptions: NextAuthOptions = {
 
           // Check if the member has the required role to sign in
 
+          const isAdmin = memberData.roles.includes(process.env.DISCORD_ADMIN_ROLE)
+
           isAdult =
             isAuthorized &&
-            memberData.roles.includes(process.env.DISCORD_ADULT_ROLE)
+            memberData.roles.includes(process.env.DISCORD_ADULT_ROLE) || isAdmin
 
           // Assign roles to profile
         }

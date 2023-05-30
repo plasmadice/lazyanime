@@ -8,7 +8,8 @@
     "start": "next start",
     "localStart": "next start -H 127.0.0.1",
     "lint": "next lint",
-    "clean": "rm -rf .next ./node_modules /static && yarn"
+    "clean": "rm -rf .next ./node_modules /static && yarn",
+    "env.example": "sed 's/=.*$/=/g' .env > .env.example"
   },
   "dependencies": {
     "@smakss/react-scroll-direction": "^2.1.1",
