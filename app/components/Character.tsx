@@ -10,7 +10,6 @@ export function Character({
 }) {
   return (
     <li
-      key={edge.node.id}
       className={`flex flex-col items-center rounded-md w-auto relative${className ? ` ${className}` : ""}`}
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${edge.node.image.large})`,

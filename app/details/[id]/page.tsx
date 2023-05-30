@@ -177,7 +177,7 @@ export default async function page({ params }: { params: { id: number } }) {
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-16">
             {anime.characters.edges.map((edge) => (
-              <Character edge={edge} />
+              <Character key={edge.node.id} edge={edge} />
             ))}
           </ul>
         </div>
