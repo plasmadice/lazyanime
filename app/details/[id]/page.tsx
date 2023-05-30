@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import type { AnimeDetails } from "@types"
 import { Metadata } from "next"
-import { DetailDescription } from "@components"
+import { DetailDescription, Character } from "@components"
 
 const fetchDetails = async (id: number) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/details/${id}`)
@@ -176,42 +176,8 @@ export default async function page({ params }: { params: { id: number } }) {
             Characters
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-16">
-            {anime.characters.edges.map((edge, index) => (
-              <li
-                key={index}
-                className="flex flex-col items-center rounded-md w-auto relative"
-                style={{
-                  backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${edge.node.image.large})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  minHeight: "300px", // Adjust the height as needed
-                }}
-              >
-                <div className="flex flex-col items-center mt-2 z-10">
-                  <Image
-                    width={200}
-                    height={300}
-                    className="w-24 h-auto mb-2"
-                    src={edge.node.image.large as string}
-                    alt={edge.node.name.full as string}
-                  />
-                  <span>
-                    {edge.node.name.full} ({edge.role})
-                  </span>
-                </div>
-                {edge.voiceActors && edge.voiceActors[0] && (
-                  <div className="flex flex-col items-center mt-2 z-10">
-                    <Image
-                      width={200}
-                      height={300}
-                      className="w-16 h-auto mb-2"
-                      src={edge.voiceActors[0].image.large as string}
-                      alt={edge.voiceActors[0].name.full as string}
-                    />
-                    <span>{edge.voiceActors[0].name.full}</span>
-                  </div>
-                )}
-              </li>
+            {anime.characters.edges.map((edge) => (
+              <Character edge={edge} />
             ))}
           </ul>
         </div>
