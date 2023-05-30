@@ -57,6 +57,7 @@ export default async function page({ params }: { params: { id: number } }) {
           alt={String(
             anime.title.english || anime.title.romaji || anime.title.native
           )}
+          priority
         />
         <div className="col-span-3 prose">
           <div>
