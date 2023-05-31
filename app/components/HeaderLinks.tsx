@@ -1,5 +1,3 @@
-"use client"
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from "next-auth/react"
@@ -9,23 +7,8 @@ type Props = {
   data: AnimeSession | null
 }
 
-const HeaderLinks = () => {
-  const { data: session }: Props = useSession()
-
-  const [animeId, setAnimeId] = useState<number>(1)
-
-  // Strange pattern. Fetches data using effect hook and on every /random click
-  const fetchRandomAnimeId = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/random`, {
-      cache: "no-store",
-    })
-    const animeId: number = await res.json()
-    setAnimeId(animeId)
-  }
-
-  useEffect(() => {
-    fetchRandomAnimeId()
-  }, [])
+const HeaderLinks = ({ randomId }: { randomId?: number}) => {
+  const { data: session}: Props = useSession()
 
   return (
     <>
@@ -48,16 +31,17 @@ const HeaderLinks = () => {
         </Link>
       </li>
 
-      <li>
+      {randomId ? (
+        <li>
         <Link
           className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"
-          href={`/details/${animeId}`}
+          href={`/details/${randomId}`}
           prefetch={false}
-          onClick={() => fetchRandomAnimeId()}
         >
           Random
         </Link>
       </li>
+      ) : null}
       <li>
         <button
           className="btn btn-link !m-0 !normal-case !no-underline no-animation px-2 !h-2 text-white text-base hover:text-gray-300"

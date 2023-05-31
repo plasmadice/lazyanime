@@ -227,23 +227,24 @@ const getRandomCleanAnime = gql`
 `
 
 export const randomAnime = async () => {
-  const cleanRandomNumber = Math.floor(Math.random() * 375) + 1
+  const cleanRandomNumber = Math.floor(Math.random() * 344) + 1
   const randomNumber = Math.floor(Math.random() * 375) + 1
   const session = await getSession()
   const isAdultFlag = session?.isAdult || false
+
   const template = isAdultFlag ? getRandomAnime : getRandomCleanAnime
+  const templateNumber = isAdultFlag ? randomNumber : cleanRandomNumber
 
   const res: any = await request(
     process.env.GRAPHQL_API_URL as string,
-    getRandomAnime,
-    { page: randomNumber }
+    template,
+    { page: templateNumber }
   )
-
-  console.log('Page has data: ', res?.Page?.media.length > 0)
 
   const media = res?.Page?.media
   // retrieve a random ID from the list of IDs
   let animeId = media[Math.floor(Math.random() * media.length)].id
+  console.log('animeId in randomAnime: ', animeId)
 
   return animeId
 }

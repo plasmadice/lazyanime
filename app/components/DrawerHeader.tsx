@@ -5,12 +5,13 @@ import HeaderSearch from "./HeaderSearch" // has an eventListener for clicks tha
 import DrawerSearch from "./DrawerSearch"
 import { Footer } from "./"
 import HeaderLinks from "./HeaderLinks"
-import { useScroll } from "@hooks"
+import { useScroll, useRandomId } from "@hooks"
 import { useRef } from "react"
 
 const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
   const { isActive: hidden } = useScroll({ activeAfter: 48 })
   const drawerRef: any = useRef(null) // Passed to drawerSearch so that we can close the drawer
+  const { randomId } = useRandomId()
 
   return (
     <div className="h-full drawer drawer-end relative">
@@ -40,7 +41,7 @@ const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
               {/* <!-- Navbar menu content here --> */}
               <nav className="flex space-x-4 items-center">
                 <HeaderSearch />
-                <HeaderLinks />
+                <HeaderLinks randomId={randomId} />
               </nav>
             </ul>
           </div>
@@ -73,7 +74,7 @@ const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
         <ul className="menu py-4 w-1/2 bg-base-100 place-items-end">
           {/* <!-- Sidebar content here --> */}
           <DrawerSearch drawerRef={drawerRef} />
-          <HeaderLinks />
+          <HeaderLinks randomId={randomId} />
         </ul>
       </header>
     </div>
