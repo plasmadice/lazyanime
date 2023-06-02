@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useSearch } from "@hooks"
-import { useRouter } from 'next/navigation'
 
 const formatDate = (date: any): string => {
   return new Date(date?.year, date?.month - 1, date?.day).toLocaleDateString(
@@ -70,7 +69,7 @@ const HeaderSearch = ({ className, drawerRef }: Props = { className: "" }) => {
 
   return (
     <div className={`${className?.length ? ` ${className}` : ""}`}>
-      <div className="relative right-2" ref={wrapperRef}>
+      <div className="relative" ref={wrapperRef}>
         <form onSubmit={(e) => handleSearchSubmit(e)}>
           <input
             type="text"

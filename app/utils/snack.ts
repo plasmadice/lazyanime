@@ -23,7 +23,22 @@
 // }
 
 // // function that accepts an anime id and searches for it on gogoanime
-// export async function search(id: string) {
+// export async function search(query: string) {
 //   const gogoanime = new ANIME.Gogoanime()
-//   return await gogoanime.search(id)
+//   const res = await gogoanime.search(query)
+//   console.log('res in snack', res)
+//   return res
+// }
+
+
+// // function that accepts an anime id and searches for it on a dynamically chosen provider
+// export async function providerQuery(provider: string, query: string) {
+//   if (!(provider in ANIME)) {
+//     throw new Error(`Provider ${provider} not found in ANIME`)
+//   }
+
+//   // @ts-ignore
+//   const providerInstance = new ANIME[provider]()
+//   const res = await providerInstance.search(query)
+//   return res
 // }

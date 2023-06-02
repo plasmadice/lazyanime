@@ -10,6 +10,7 @@ interface AnimeSession extends Session {
 
 const getSession = async () => {
   const session: AnimeSession | null = await getServerSession(authOptions)
+  console.log('session in getSession: ', session)
   return session
 }
 
@@ -244,7 +245,6 @@ export const randomAnime = async () => {
   const media = res?.Page?.media
   // retrieve a random ID from the list of IDs
   let animeId = media[Math.floor(Math.random() * media.length)].id
-  console.log('animeId in randomAnime: ', animeId)
 
   return animeId
 }

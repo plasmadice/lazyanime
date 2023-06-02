@@ -36,10 +36,10 @@ const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
               lazyanime
             </Link>
           </div>
-          <div className="header-container flex-none hidden lg:block text-end h-ful">
+          <div className="header-container flex-none hidden lg:block text-end h-full">
             <ul className="menu menu-horizontal">
               {/* <!-- Navbar menu content here --> */}
-              <nav className="flex space-x-4 items-center">
+              <nav className="flex items-center">
                 <HeaderSearch />
                 <HeaderLinks randomId={randomId} />
               </nav>
@@ -71,7 +71,7 @@ const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
       </div>
       <header className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay" ref={drawerRef}></label>
-        <ul className="menu py-4 w-1/2 bg-base-100 place-items-end">
+        <ul className="menu py-4 w-1/2 bg-base-100 place-items-end h-full">
           {/* <!-- Sidebar content here --> */}
           <DrawerSearch drawerRef={drawerRef} />
           <HeaderLinks randomId={randomId} />

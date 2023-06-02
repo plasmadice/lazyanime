@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Card } from "../../components"
-import { Anime } from "../../types"
+import { Card } from "@components"
+import { Anime } from "@types"
 import { useSearch } from "@hooks"
 
 // Generate data for search page by modifying metadata
