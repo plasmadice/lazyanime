@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 export function useClickAway(cb: (e: Event) => void) {
   const ref = React.useRef(null);

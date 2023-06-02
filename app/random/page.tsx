@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 const fetchRandomAnimeId = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/random`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/anilist/random`, {
     cache: "no-store",
   })
   return await res.json()

@@ -107,6 +107,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
               {searchResults.map((anime: any) => (
                 <li key={anime.id} className="max-w-md">
                   <Link
+                    prefetch={false}
                     className="grid grid-cols-8"
                     href={`/details/${anime.id}`}
                   >

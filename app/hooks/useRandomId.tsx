@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 
 const fetchRandomAnimeId = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/random`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/anilist/random`, {
     cache: "no-store",
   })
   const animeId: number = await res.json()

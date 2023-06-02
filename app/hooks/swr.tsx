@@ -21,12 +21,12 @@ async function fetcher<JSON = any>(
  * const { data, error, isLoading: loading } = useSearch(searchStr)
  **/
 export const useSearch = (query: string | null) => {
-  const [route, setRoute] = useState<string | null>(query?.length ? `/api/search/${query}` : null)
+  const [route, setRoute] = useState<string | null>(query?.length ? `/api/anilist/search/${query}` : null)
 
   useEffect(() => {
     const fetchResults = async () => {
-      if (query && query?.length && `/api/search/${query}` !== route) {
-        setRoute(`/api/search/${query}`)
+      if (query && query?.length && `/api/anilist/search/${query}` !== route) {
+        setRoute(`/api/anilist/search/${query}`)
       } else if (query === null) {
         setRoute(null)
       }

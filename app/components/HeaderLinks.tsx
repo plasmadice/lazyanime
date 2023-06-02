@@ -2,7 +2,7 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from "next-auth/react"
 import { AnimeSession } from "@types"
-import { AiOutlineSetting } from "react-icons/ai"
+// import { AiOutlineSetting } from "react-icons/ai"
 
 type Props = {
   data: AnimeSession | null
@@ -16,7 +16,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       <li>
         <Link
           prefetch={false}
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-1 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
           href="/"
         >
           Home
@@ -25,7 +25,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       <li>
         <Link
           prefetch={false}
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-1 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
           href="/search"
         >
           Search
@@ -35,7 +35,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       {randomId ? (
         <li>
           <Link
-            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-1 place-content-center text-white text-base hover:text-gray-300"
+            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
             href={`/details/${randomId}`}
             prefetch={false}
           >
@@ -45,7 +45,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       ) : null}
       <li>
         <button
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-1 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
           onClick={() => (session ? signOut() : signIn())}
         >
           {session ? "Sign Out" : "Sign In"}
@@ -53,15 +53,16 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       </li>
       {session?.user || !session?.user ? (
         // <Link href="/profile">
-          <li>
-            <p className="h-full">
-              {session?.user?.name ? `${session?.user?.name}` : "Guest mode"}
-              {session?.isAdult ? " (adult)" : ""}
-              {/* <AiOutlineSetting size="2em" /> */}
-            </p>
-          </li>
-        // </Link> 
-      ) : null}
+        // prefetch={false}
+        <li>
+          <p className="h-full">
+            {session?.user?.name ? `${session?.user?.name}` : "Guest mode"}
+            {session?.isAdult ? " (adult)" : ""}
+            {/* <AiOutlineSetting size="2em" /> */}
+          </p>
+        </li>
+      ) : // </Link>
+      null}
     </>
   )
 }

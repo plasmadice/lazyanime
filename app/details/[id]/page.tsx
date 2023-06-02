@@ -3,9 +3,12 @@ import Image from "next/image"
 import type { AnimeDetails } from "@types"
 import { Metadata } from "next"
 import { DetailDescription, Character } from "@components"
+// import { useConsumetSearch } from "@hooks"
 
 const fetchDetails = async (id: number) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/details/${id}`)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/api/anilist/details/${id}`
+  )
   return await res.json()
 }
 
@@ -24,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function page({ params }: { params: { id: number } }) {
   const anime: AnimeDetails = await fetchDetails(params.id)
+  // const result = await useConsumetSearch(anime.title.romaji || anime.title.english as string)
+  // console.log('result in details page: ', result)
 
   if (!anime) {
     return <div>Loading...</div>
@@ -132,8 +137,12 @@ export default async function page({ params }: { params: { id: number } }) {
                 <h2 className="text-base font-normal">Related Anime</h2>
                 <ul className="flex flex-col gap-4 max-h-48 h-min overflow-y-auto">
                   {anime.relations.edges.map((edge) => (
-                    <li key={edge.node.id} className="mb-1 list-none items-center">
+                    <li
+                      key={edge.node.id}
+                      className="mb-1 list-none items-center"
+                    >
                       <Link
+                        prefetch={false}
                         className="items-center no-underline"
                         href={`/details/${edge.node.id}`}
                       >

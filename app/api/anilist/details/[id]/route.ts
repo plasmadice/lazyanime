@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { gql, request } from "graphql-request"
-import type { AnimeDetails } from "../../../types"
+import type { AnimeDetails } from "@types"
 
 // Used in /details route
 const getDetails = gql`
