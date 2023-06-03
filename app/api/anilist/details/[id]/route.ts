@@ -49,7 +49,7 @@ const getDetails = gql`
         site
         thumbnail
       }
-      characters(sort: [ROLE, RELEVANCE, ID], perPage: 10) {
+      characters(sort: [ROLE, RELEVANCE, ID], perPage: 12) {
         edges {
           node {
             id
