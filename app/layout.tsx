@@ -1,5 +1,6 @@
 import "./globals.css"
 import DrawerHeader from "./components/DrawerHeader"
+// import DrawerHeader from "./components/DrawerHeader"
 import AuthContext from "./AuthContext"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"

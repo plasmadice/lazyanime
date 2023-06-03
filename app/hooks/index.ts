@@ -1,5 +1,4 @@
 export * from "./swr"
 export * from "./useScroll"
 export * from "./useRandomId"
-export * from "./useConsumet"
 export * from "./useHooks"

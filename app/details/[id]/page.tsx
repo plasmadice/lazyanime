@@ -3,7 +3,8 @@ import Image from "next/image"
 import type { AnimeDetails } from "@types"
 import { Metadata } from "next"
 import { DetailDescription, Character } from "@components"
-// import { useConsumetSearch } from "@hooks"
+// import { withConsumetSearch } from "@utils"
+// import { AnimeProviders } from "@types"
 
 const fetchDetails = async (id: number) => {
   const res = await fetch(
@@ -27,7 +28,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function page({ params }: { params: { id: number } }) {
   const anime: AnimeDetails = await fetchDetails(params.id)
-  // const result = await useConsumetSearch(anime.title.romaji || anime.title.english as string)
+
+  // const query = {
+  //   provider: AnimeProviders.Gogoanime,
+  //   query: anime.title.romaji || anime.title.english as string,
+  //   page: 1,
+  // }
+  
+  // const result = await withConsumetSearch(query)
+
   // console.log('result in details page: ', result)
 
   if (!anime) {

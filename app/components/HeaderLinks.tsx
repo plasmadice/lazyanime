@@ -51,6 +51,17 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
           {session ? "Sign Out" : "Sign In"}
         </button>
       </li>
+      {process.env.NODE_ENV === "development" ? (
+        <li>
+          <Link
+            prefetch={false}
+            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+            href="/api/consumet/Gogoanime/naruto"
+          >
+            demo
+          </Link>
+        </li>
+      ) : null}
       {session?.user || !session?.user ? (
         // <Link href="/profile">
         // prefetch={false}

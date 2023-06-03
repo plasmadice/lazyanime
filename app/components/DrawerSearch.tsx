@@ -20,7 +20,7 @@ type Props = {
   drawerRef?: any
 }
 
-const HeaderSearch = ({ className, drawerRef }: Props = { className: "" }) => {
+const DrawerSearch = ({ className, drawerRef }: Props = { className: "" }) => {
   const [searchInput, setSearchInput] = useState("")
   const [isOpen, setIsOpen] = useState(true)
   const inputRef: any = useRef(null)
@@ -165,4 +165,4 @@ const HeaderSearch = ({ className, drawerRef }: Props = { className: "" }) => {
   )
 }
 
-export default HeaderSearch
+export default DrawerSearch

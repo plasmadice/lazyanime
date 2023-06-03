@@ -90,7 +90,7 @@ export function useSessionStorage(key: any, initialValue: any) {
     return () => {
       typeof window !== "undefined" && window.removeEventListener("session-storage", onStorageChange);
     };
-  }, []);
+  }, [onStorageChange]);
 
   return [localState, handleSetState];
 }

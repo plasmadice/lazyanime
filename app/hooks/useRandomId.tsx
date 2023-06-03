@@ -29,7 +29,7 @@ export const useRandomId = () => {
     }
 
     newRandomId()
-  }, [path])
+  }, [path, randomId])
 
   return { randomId }
 }

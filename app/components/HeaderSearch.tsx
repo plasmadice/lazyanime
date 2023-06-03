@@ -30,6 +30,18 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
   const { data, error, isLoading: loading } = useSearch(searchInput)
   const searchResults = data?.slice(0, 5)
 
+  // const clickAwayRef = useClickAway((e: any) => {
+
+  //   if (e.target?.classList?.value?.includes("header-container") ||
+  //   e.target.tagName === "HEADER") {
+  //     console.log('inputRef', inputRef)
+  //     setIsOpen(true)
+  //   } else {
+  //     setIsOpen(false);
+  //   }
+    
+  // });
+
   // Close search when clicked outside
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -39,7 +51,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
         event.target.tagName === "HEADER"
       ) {
         setIsOpen(true)
-        inputRef?.current?.focus()
+        // inputRef?.current?.focus()
       } else {
         setIsOpen(false)
       }
@@ -75,7 +87,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
             value={searchInput}
             ref={inputRef}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="border border-gray-300 max-h-6"
+            className="input border bg-neutral-300 text-neutral-700 border-gray-300 max-h-6"
           />
         </form>
         {/* Display search results */}
