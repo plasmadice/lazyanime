@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
-export const runtime = "edge"
-
 export async function GET(request: Request) {
   // Query parameters from the URL (e.g. `/api/consumet/Gogoanime/[query]/route.ts?page=1`)
   const { searchParams } = new URL(request.url)
