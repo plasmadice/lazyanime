@@ -14,9 +14,9 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@consumet/extensions@git+https://github.com/plasmadice/consumet.ts.git":
+"@consumet/extensions@plasmadice/consumet.ts":
   version "1.4.18"
-  resolved "git+https://github.com/plasmadice/consumet.ts.git#ae5525c2fe19bfa7f505a896a2d7679b6c5bc25a"
+  resolved "https://codeload.github.com/plasmadice/consumet.ts/tar.gz/8b71bb743d390c3de7a8879b0467bad6329fc533"
   dependencies:
     ascii-url-encoder "^1.2.0"
     axios "^0.27.2"
