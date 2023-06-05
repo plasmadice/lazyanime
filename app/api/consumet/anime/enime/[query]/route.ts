@@ -6,7 +6,7 @@ type Props = {
     query: string
   }
 }
-// ex. http://localhost:3000/api/consumet/anime/zoro/gundam
+// ex. http://localhost:3000/api/consumet/anime/enime/gundam?page=2
 export async function GET(request: Request, { params }: Props) {
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const query = params.query
@@ -26,8 +26,8 @@ export async function GET(request: Request, { params }: Props) {
   }
 
   try {
-    const zoro = new ANIME.Zoro()
-    const res = await zoro.search(query, page)
+    const enime = new ANIME.Enime();
+    const res = await enime.search(query, page)
 
     return NextResponse.json(res)
   } catch (err: any) {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
-// ex. http://localhost:3000/api/consumet/anime/zoro/info?id=mobile-suit-gundam-cucuruz-doans-island-18400
+// ex. http://localhost:3000/api/consumet/anime/enime/info?id=clfs7tw9000b801pk9f200aj3
 export async function GET(request: Request) {
   // Query parameters from the URL (e.g. `/api/consumet/Gogoanime/[query]/route.ts?page=1`)
   const { searchParams } = new URL(request.url)
@@ -18,8 +18,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const zoro = new ANIME.Zoro()
-    const res = await zoro.fetchAnimeInfo(id)
+    const enime = new ANIME.Enime();
+    const res = await enime.fetchAnimeInfo(id)
 
     return NextResponse.json(res)
   } catch (err: any) {
