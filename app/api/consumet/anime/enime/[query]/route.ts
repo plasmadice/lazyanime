@@ -6,6 +6,7 @@ type Props = {
     query: string
   }
 }
+
 // ex. http://localhost:3000/api/consumet/anime/enime/gundam?page=2
 export async function GET(request: Request, { params }: Props) {
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`

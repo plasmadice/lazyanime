@@ -7,7 +7,6 @@ type Props = {
   }
 }
 
-// Not sure if this works
 export async function GET(request: Request, { params }: Props) {
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const id = params.id

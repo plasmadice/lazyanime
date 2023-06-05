@@ -7,6 +7,7 @@ type Props = {
   }
 }
 
+// ex. http://localhost:3000/api/consumet/anime/animepahe/naruto
 export async function GET(request: Request, { params }: Props) {
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const query = params.query
