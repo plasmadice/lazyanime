@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import React, { useState } from "react"
 import parse from "html-react-parser"
 
 type Props = {

@@ -10,7 +10,6 @@ interface AnimeSession extends Session {
 
 const getSession = async () => {
   const session: AnimeSession | null = await getServerSession(authOptions)
-  console.log('session in getSession: ', session)
   return session
 }
 

@@ -1,5 +1,28 @@
 import React from "react";
 
+// import { useClickAway } from "@uidotdev/usehooks";
+
+// Polyfill for experimental react feature
+const useEffectEvent = (callback: any) => {
+  const ref = React.useRef(callback);
+
+  ref.current = callback;
+
+  return (...args: any) => {
+    ref.current(...args);
+  }
+}
+
+// Definitely doesn't work in nextjs by default due to compiler 'attempting' server-side rendering by default in development
+function getEnvironment() {
+  const isDOM =
+    typeof window !== "undefined" &&
+    window.document &&
+    window.document.documentElement;
+
+  return isDOM ? "browser" : "server";
+}
+
 export function useClickAway(cb: (e: Event) => void) {
   const ref = React.useRef(null);
   const refCb = React.useRef(cb);
@@ -23,15 +46,6 @@ export function useClickAway(cb: (e: Event) => void) {
   }, []);
 
   return ref;
-}
-
-function getEnvironment() {
-  const isDOM =
-    typeof window !== "undefined" &&
-    window.document &&
-    window.document.documentElement;
-
-  return isDOM ? "browser" : "server";
 }
 
 export function useSessionStorage(key: any, initialValue: any) {
@@ -66,15 +80,7 @@ export function useSessionStorage(key: any, initialValue: any) {
     [key, localState]
   );
 
-  const useEffectEvent = (callback: any) => {
-    const ref = React.useRef(callback);
   
-    ref.current = callback;
-  
-    return (...args: any) => {
-      ref.current(...args);
-    }
-  }
 
   const onStorageChange = useEffectEvent((event: any) => {
     if (event?.key && event.key !== key) {
@@ -93,4 +99,23 @@ export function useSessionStorage(key: any, initialValue: any) {
   }, [onStorageChange]);
 
   return [localState, handleSetState];
+}
+
+export function useKeyPress(key: any, cb: any, options: any = {}) {
+  const { event = "keydown", target = window ?? null, eventOptions } = options;
+  const eventOptionsRef = React.useRef(eventOptions);
+
+  const onEvent = useEffectEvent((event: any) => {
+    if (event.key === key) {
+      cb(event);
+    }
+  });
+
+  React.useEffect(() => {
+    target.addEventListener(event, onEvent, eventOptionsRef.current);
+
+    return () => {
+      target.removeEventListener(event, onEvent);
+    };
+  }, [target, event]);
 }

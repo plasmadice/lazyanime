@@ -58,7 +58,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
             className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
             href="/api/consumet/search/Gogoanime/naruto"
           >
-            demo
+            test
           </Link>
         </li>
       ) : null}

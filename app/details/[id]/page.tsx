@@ -3,8 +3,8 @@ import Image from "next/image"
 import type { AnimeDetails } from "@types"
 import { Metadata } from "next"
 import { DetailDescription, Character } from "@components"
-// import { withConsumetSearch } from "@utils"
-// import { AnimeProviders } from "@types"
+// import { withProviderSearch } from "@utils"
+import { AnimeProviders } from "@types"
 
 const fetchDetails = async (id: number) => {
   const res = await fetch(
@@ -29,15 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function page({ params }: { params: { id: number } }) {
   const anime: AnimeDetails = await fetchDetails(params.id)
 
-  // const query = {
-  //   provider: AnimeProviders.Gogoanime,
-  //   query: anime.title.romaji || anime.title.english as string,
-  //   page: 1,
-  // }
-  
-  // const result = await withConsumetSearch(query)
+  const query = {
+    provider: AnimeProviders.Gogoanime,
+    query: anime.title.romaji || anime.title.english as string,
+    page: 1,
+  }
 
-  // console.log('result in details page: ', result)
+  // const result = await withProviderSearch(query)
 
   if (!anime) {
     return <div>Loading...</div>
@@ -200,6 +198,20 @@ export default async function page({ params }: { params: { id: number } }) {
           </ul>
         </div>
       </div>
+
+      {/* Episodes */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-5 mb-6 p-6 mx-auto">
+        <div className="col-span-3 prose">
+          <h2 className="text-base font-normal mb-2">Episodes</h2>
+          <ul className="list-none">
+            {anime.streamingEpisodes.map((episode) => (
+              <li key={episode.title} className="mb-1">
+                {episode.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div> */}
     </div>
   )
 }
