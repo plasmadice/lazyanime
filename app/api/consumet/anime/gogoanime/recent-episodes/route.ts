@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
-export const config = {
-  runtime: 'edge',
-};
+export const runtime = 'edge';
 
 export async function GET(request: Request) {
 
