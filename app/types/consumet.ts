@@ -18,7 +18,7 @@ export interface AnimeSpeeds {
 }
 
 export interface Ping {
-  speed: number
   provider: Providers
+  speed?: number
   error?: ErrorInfo
 }

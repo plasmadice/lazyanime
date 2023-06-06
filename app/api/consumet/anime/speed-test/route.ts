@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { Providers, AnimeSpeeds, Ping } from "@types"
+import { Providers, Ping } from "@types"
 
 const fetchSpeed = async (provider: Providers) => {
   const res = await fetch(
@@ -31,17 +31,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    // let res: AnimeSpeeds = {}
-
-    // for (const provider in Providers) {
-    //   res[provider] = await fetchSpeed(provider as Providers)
-    // }
-    // const [animepahe, enime, gogoanime, marin, zoro] = await Promise.all((Object.keys(Providers) as Array<Providers>).map(provider => fetchSpeed(provider)));
-
     let providersList = (Object.keys(Providers) as Array<Providers>)
     const results = await Promise.all(providersList.map(provider => fetchSpeed(provider)));
     const res: Ping[] = providersList.map((provider, index) => {
-    const speed: number = results[index].speed || 0
+    const speed: number = results[index].speed
 
       return {
         speed: speed,
@@ -56,7 +49,7 @@ export async function GET(request: Request) {
       {
         error: err?.message,
         description: `Error while checking provider speed${
-          provider ? ` for ${provider}` : " for all providers"
+          provider ? ` for ${provider}` : "s for all providers"
         }`,
       },
       { status: 500 }
