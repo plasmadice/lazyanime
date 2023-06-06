@@ -38,7 +38,7 @@ export default async function page() {
   console.log("results", results)
   return (
     <div className="m-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-      <h1 className="text-3xl mb-4">Anime Speeds</h1>
+      <h1 className="text-3xl mb-4">Provider Speeds</h1>
       {results.map((result, index) => (
         <div key={index} className="p-4 mb-2 rounded-lg bg-white dark:bg-gray-700">
           <h2 className="text-xl font-bold">{result.provider}</h2>

@@ -12,7 +12,7 @@ export function Footer() {
           lazyanime
         </Link>
         <p>
-          {new Date().getFullYear()} lazyanime. All rights reserved.
+          {new Date().getFullYear()} lazyanime.com
           <br />
           No data is stored. All information is retrieved from third parties.
         </p>
@@ -27,7 +27,7 @@ export function Footer() {
           prefetch={false}
           className="link link-hover"
         >
-          See 18+ content
+          Unlock adult content
         </Link>
         <Link href="/" prefetch={false} className="link link-hover">
           About
