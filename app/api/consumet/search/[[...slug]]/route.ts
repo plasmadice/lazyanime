@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
-import { AnimeProviders } from "@types"
+import { Providers } from "@types"
 
 export async function GET(
   request: Request,
   { params }: { params: { slug: string[] } }
 ) {
-  const provider: any = params.slug[0] || AnimeProviders.Gogoanime
+  const provider: any = params.slug[0] || Providers.Gogoanime
   const query = params.slug[1]
   const page = Number(params.slug[2]) || 1
 
-  if (!Object.values(AnimeProviders).includes(provider)) {
+  if (!Object.values(Providers).includes(provider)) {
     return NextResponse.json({ error: 'Provider not found', description: `Error while searching provider: ${provider}` }, { status: 400 });
   }
   

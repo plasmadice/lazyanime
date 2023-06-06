@@ -1,13 +1,13 @@
-import { AnimeProviders } from "@types"
+import { Providers } from "@types"
 
 type Props = {
-  provider: AnimeProviders
+  provider: Providers
   query: string
   page?: number
 }
 
 export async function withProviderSearch({ provider, query, page }: Props) {
-  if (!Object.values(AnimeProviders).includes(provider)) {
+  if (!Object.values(Providers).includes(provider)) {
     return { error: "Invalid provider. Failure within withProviderSearch" }
   }
 
@@ -18,8 +18,8 @@ export async function withProviderSearch({ provider, query, page }: Props) {
   return res
 }
 
-export async function withConsumetEpisodes({ provider, slug }: { provider: AnimeProviders, slug: string }) {
-  if (!Object.values(AnimeProviders).includes(provider)) {
+export async function withConsumetEpisodes({ provider, slug }: { provider: Providers, slug: string }) {
+  if (!Object.values(Providers).includes(provider)) {
     return { error: "Invalid provider. Failure within withConsumetEpisodes" }
   }
 
@@ -30,8 +30,8 @@ export async function withConsumetEpisodes({ provider, slug }: { provider: Anime
   return res
 }
 
-export async function withConsumetEpisode({ provider, slug, episode }: { provider: AnimeProviders, slug: string, episode: string }) {
-  if (!Object.values(AnimeProviders).includes(provider)) {
+export async function withConsumetEpisode({ provider, slug, episode }: { provider: Providers, slug: string, episode: string }) {
+  if (!Object.values(Providers).includes(provider)) {
     return { error: "Invalid provider. Failure within withConsumetEpisode" }
   }
 

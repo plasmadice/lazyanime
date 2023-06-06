@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     const speed = Number(((t1 - t0) / 1000).toFixed(2))
 
     if (res.results) {
-      return NextResponse.json(speed)
+      return NextResponse.json({ speed })
     } else {
       return NextResponse.json(
         {

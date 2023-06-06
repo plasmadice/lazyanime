@@ -4,15 +4,15 @@ import { ANIME } from "@consumet/extensions"
 
 // ex. http://localhost:3000/api/consumet/anime/marin/speed-test
 export async function GET(request: Request) {
-  let t0, t1 = performance.now()
-  
+  let t0,
+    t1 = performance.now()
+
   // Query parameters from the URL (e.g. `/api/consumet/Gogoanime/[query]/route.ts?page=1`)
   const { searchParams } = new URL(request.url)
   const query = searchParams.get("query") || "One Piece"
-  
 
   try {
-    const provider = new ANIME.Marin();
+    const provider = new ANIME.Marin()
 
     t0 = performance.now()
     const res = await provider.search(query, 1)
@@ -20,12 +20,14 @@ export async function GET(request: Request) {
     const speed = Number(((t1 - t0) / 1000).toFixed(2))
 
     if (res.results) {
-      return NextResponse.json(speed)
+      return NextResponse.json({ speed })
     } else {
       return NextResponse.json(
         {
           error: "No results from Marin",
-          description: `No results from Marin.${query ? ` Query: ${query}` : ""}}`,
+          description: `No results from Marin.${
+            query ? ` Query: ${query}` : ""
+          }}`,
         },
         { status: 404 }
       )

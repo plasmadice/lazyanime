@@ -1,26 +1,7 @@
 import { NextResponse } from "next/server"
-
-enum Providers {
-  AnimePahe = "animepahe",
-  Enime = "enime",
-  Gogoanime = "gogoanime",
-  Marin = "marin",
-  Zoro = "zoro",
-}
-
-interface ErrorInfo {
-  error: string;
-  description: string;
-}
-
-type Speed = number | ErrorInfo;
-
-interface AnimeSpeeds {
-  [key: string]: Speed;
-}
+import { Providers, AnimeSpeeds, Ping } from "@types"
 
 const fetchSpeed = async (provider: Providers) => {
-  console.log(`Checking ${provider} speed...`)
   const res = await fetch(
     `${
       process.env.NEXT_PUBLIC_URL
@@ -35,7 +16,6 @@ const fetchSpeed = async (provider: Providers) => {
 // ex. http://localhost:3000/api/consumet/anime/providers
 // ex. http://localhost:3000/api/consumet/anime/providers?provider=animepahe
 export async function GET(request: Request) {
-  console.log("Checking provider speed...")
   // Query parameters from the URL (e.g. `/api/consumet/Gogoanime/[query]/route.ts?page=1`)
   const { searchParams } = new URL(request.url)
   const provider = searchParams.get("provider") as Providers
@@ -51,13 +31,26 @@ export async function GET(request: Request) {
   }
 
   try {
-    let res: AnimeSpeeds = {}
+    // let res: AnimeSpeeds = {}
 
-    for (const provider in Providers) {
-      res[provider] = await fetchSpeed(provider as Providers)
-    }
+    // for (const provider in Providers) {
+    //   res[provider] = await fetchSpeed(provider as Providers)
+    // }
+    // const [animepahe, enime, gogoanime, marin, zoro] = await Promise.all((Object.keys(Providers) as Array<Providers>).map(provider => fetchSpeed(provider)));
 
-    return NextResponse.json(await res)
+    let providersList = (Object.keys(Providers) as Array<Providers>)
+    const results = await Promise.all(providersList.map(provider => fetchSpeed(provider)));
+    const res: Ping[] = providersList.map((provider, index) => {
+    const speed: number = results[index].speed || 0
+
+      return {
+        speed: speed,
+        provider: provider,
+        error: results[index].error,
+      }
+    })
+
+    return NextResponse.json(res)
   } catch (err: any) {
     return NextResponse.json(
       {
