@@ -18,7 +18,7 @@ export function Row({
           className.length ? ` ${className}` : ""
         }`}
       >
-        <div className="flex pl-4 h-full overflow-x-scroll">
+        <div className="flex pl-4 h-full overflow-x-scroll no-scrollbar">
           {animes.map((item: Anime) => (
             <Card key={item.id} anime={item} />
           ))}
