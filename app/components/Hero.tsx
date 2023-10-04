@@ -34,12 +34,12 @@ export function Hero({
     <div className={`hero container mx-auto antialiased h-96 mt-4 shadow-lg${className ? ` ${className}` : ""}`}>
       {/* Backgrouind Hero Image */}
       <div
-        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-full rounded-md"
+        className="grid grid-cols-1 md:grid-cols-5 px-6 w-full h-full rounded-lg"
         style={{
           backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url(${anime.coverImage.extraLarge})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(1px)",
+          backgroundPosition: "50% 40%",
+          filter: "blur(1.1px)",
         }}
       ></div>
       {/* Content */}
