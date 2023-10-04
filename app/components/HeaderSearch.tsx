@@ -107,7 +107,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
                 <li className="text-center">
                   <Link
                     href={`/search/${searchInput}`}
-                    className="text-white underline"
+                    className="text-base-content underline"
                     prefetch={false}
                     ref={searchLinkRef}
                   >
@@ -131,7 +131,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
                       className="max-w-[6rem] rounded-md col-span-2 p-0"
                     />
                     <div className="col-span-6 grid grid-rows-3">
-                      <p className="text-white truncate max-w-xl">
+                      <p className="text-base-content truncate max-w-xl">
                         {anime?.title?.english || anime?.title?.romaji}
                       </p>
                       {anime.title.romaji &&
@@ -173,7 +173,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
         className={`px-2 cursor-pointer${isOpen ? " hidden" : ""}`}
         onClick={() => setIsOpen(true)}
       >
-        <BsSearch className="text-white w-6 h-6" />
+        <BsSearch className="text-base-content w-6 h-6" />
       </div>
     </div>
   )

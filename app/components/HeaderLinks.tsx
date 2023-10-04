@@ -16,7 +16,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       <li>
         <Link
           prefetch={false}
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-base-content text-base hover:text-gray-300"
           href="/"
         >
           Home
@@ -25,7 +25,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       <li>
         <Link
           prefetch={false}
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-base-content text-base hover:text-gray-300"
           href="/search"
         >
           Search
@@ -35,7 +35,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       {randomId ? (
         <li>
           <Link
-            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-base-content text-base hover:text-gray-300"
             href={`/details/${randomId}`}
             prefetch={false}
           >
@@ -45,7 +45,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
       ) : null}
       <li>
         <button
-          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+          className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-base-content text-base hover:text-gray-300"
           onClick={() => (session ? signOut() : signIn())}
         >
           {session ? "Sign Out" : "Sign In"}
@@ -55,7 +55,7 @@ const HeaderLinks = ({ randomId }: { randomId?: number }) => {
         <li>
           <Link
             prefetch={false}
-            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-white text-base hover:text-gray-300"
+            className="btn btn-link !m-0 !normal-case !no-underline no-animation p-2 place-content-center text-base-content text-base hover:text-gray-300"
             href="/providers"
           >
             Providers

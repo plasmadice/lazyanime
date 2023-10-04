@@ -99,7 +99,7 @@ const DrawerSearch = ({ className, drawerRef }: Props = { className: "" }) => {
                 <li className="text-center">
                   <Link
                     href={`/search/${searchInput}`}
-                    className="text-white underline"
+                    className="text-base-content underline"
                     prefetch={false}
                     ref={searchLinkRef}
                   >
