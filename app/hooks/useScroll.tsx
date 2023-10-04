@@ -2,17 +2,17 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import useDetectScroll, {
-  Axis,
-  Direction,
-} from "@smakss/react-scroll-direction"
+// import useDetectScroll, {
+//   Axis,
+//   Direction,
+// } from "@smakss/react-scroll-direction"
 
 type ScrollProps = {
   thr?: number
-  axis?: Axis
-  scrollUp?: Direction
-  scrollDown?: Direction
-  still?: Direction
+  axis?: "x" | "y"
+  scrollUp?: number
+  scrollDown?: number
+  still?: number
 }
 
 interface ExtraScrollProps extends ScrollProps {
@@ -25,44 +25,30 @@ export const useScroll = (options: ExtraScrollProps) => {
   const debouncedTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   let activeAfter = options.activeAfter || 0
-  let scrollDirection = Direction.Still
-
-  if (typeof window !== "undefined") {
-    scrollDirection = useDetectScroll(options)
-  }
-
-  const onScroll = useCallback(() => {
-    if (debouncedTimeoutRef.current) {
-      clearTimeout(debouncedTimeoutRef.current)
-    }
-
-    if (typeof window !== "undefined") {
-      debouncedTimeoutRef.current = setTimeout(() => {
-        setScrollY(window.scrollY)
-      }, 200)
-    }
-  }, [])
+  let scrollDirection = options.still || 0
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", onScroll, { passive: true })
-      return () => {
-        window.removeEventListener("scroll", onScroll)
+    const onScroll = () => {
+      const { thr = 0, axis = "y", scrollUp = -1, scrollDown = 1, still = 0 } = options
+      const scrollY = window.scrollY
+      const direction = axis === "y" ? (scrollY > debouncedScrollY.current ? scrollDown : scrollUp) : still
+      debouncedScrollY.current = scrollY
+      if (Math.abs(direction) > thr) {
+        setIsActive(true)
+        debouncedTimeoutRef.current && clearTimeout(debouncedTimeoutRef.current)
+        debouncedTimeoutRef.current = setTimeout(() => {
+          setIsActive(false)
+        }, activeAfter)
       }
     }
-  }, [onScroll])
 
-  useEffect(() => {
-    if (
-      !isActive &&
-      scrollY > activeAfter &&
-      scrollDirection === Direction.Down
-    ) {
-      setIsActive(true)
-    } else if (isActive && scrollDirection === Direction.Up) {
-      setIsActive(false)
+    const debouncedScrollY = { current: 0 }
+    window.addEventListener("scroll", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      debouncedTimeoutRef.current && clearTimeout(debouncedTimeoutRef.current)
     }
-  }, [isActive, scrollY, activeAfter, scrollDirection])
+  }, [options, activeAfter])
 
-  return { scrollDirection, isActive }
+  return { isActive, scrollY }
 }

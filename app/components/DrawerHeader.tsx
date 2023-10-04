@@ -5,12 +5,12 @@ import HeaderSearch from "./HeaderSearch" // has an eventListener for clicks tha
 import DrawerSearch from "./DrawerSearch"
 import { Footer } from "./"
 import HeaderLinks from "./HeaderLinks"
-import { useScroll, useRandomId } from "@hooks"
+import { useRandomId } from "@hooks"
 import { useRef, useState } from "react"
 
 const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { isActive: hidden } = useScroll({ activeAfter: 48 })
+  const hidden = false
   const drawerRef: any = useRef(null) // Passed to drawerSearch so that we can close the drawer
   const { randomId } = useRandomId()
 
