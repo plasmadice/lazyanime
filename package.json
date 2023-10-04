@@ -12,6 +12,7 @@
     "env.example": "sed 's/=.*$/=/g' .env > .env.example"
   },
   "dependencies": {
+    "@consumet/extensions": "^1.5.2",
     "@smakss/react-scroll-direction": "2.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.8.2",
