@@ -2,10 +2,6 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-// import useDetectScroll, {
-//   Axis,
-//   Direction,
-// } from "@smakss/react-scroll-direction"
 
 type ScrollProps = {
   thr?: number
