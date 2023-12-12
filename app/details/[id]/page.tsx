@@ -79,7 +79,7 @@ export default async function page({ params }: { params: { id: number } }) {
                       anime?.title?.romaji
                         ?.replaceAll(" ", "")
                         .toLowerCase() && (
-                      <span className="pl-2 text-base-content">
+                      <span className="pl-2 text-neutral-400">
                         {anime.title.romaji ? "• " : null}
                         {anime.title.native}
                       </span>
