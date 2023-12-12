@@ -59,16 +59,16 @@ export default async function page({ params }: { params: { id: number } }) {
           )}
           priority
         />
-        <div className="col-span-3 prose">
+        <div className="col-span-3 prose text-neutral-300">
           <div>
-            <h1 className="text-3xl font-bold mb-0 mt-6 md:mt-0">
+            <h1 className="text-3xl font-bold mb-0 mt-6 md:mt-0 text-neutral-300">
               {anime.title.english || anime.title.romaji}
             </h1>
             {anime.title.romaji &&
               anime?.title?.english &&
               anime.title.romaji.replaceAll(" ", "").toLowerCase() !==
                 anime?.title?.english.replaceAll(" ", "").toLowerCase() && (
-                <h4 className="m-0">
+                <h4 className="m-0 text-neutral-300">
                   {anime.title.romaji}
                   {anime.title.native &&
                     anime.title.native.replaceAll(" ", "").toLowerCase() !==
@@ -79,7 +79,7 @@ export default async function page({ params }: { params: { id: number } }) {
                       anime?.title?.romaji
                         ?.replaceAll(" ", "")
                         .toLowerCase() && (
-                      <span className="pl-2 text-base">
+                      <span className="pl-2 text-base-content">
                         {anime.title.romaji ? "• " : null}
                         {anime.title.native}
                       </span>
@@ -129,7 +129,7 @@ export default async function page({ params }: { params: { id: number } }) {
             anime.relations.edges &&
             anime.relations.edges.length > 0 && (
               <div className="mt-2 prose">
-                <h2 className="text-base font-normal">Related Anime</h2>
+                <h2 className="text-neutral-300 font-normal">Related Anime</h2>
                 <ul className="flex flex-col gap-4 max-h-48 h-min overflow-y-auto">
                   {anime.relations.edges.map((edge) => (
                     <li
@@ -138,7 +138,7 @@ export default async function page({ params }: { params: { id: number } }) {
                     >
                       <Link
                         prefetch={false}
-                        className="items-center no-underline"
+                        className="items-center no-underline text-neutral-300"
                         href={`/details/${edge.node.id}`}
                       >
                         {edge.relationType}:{" "}
@@ -153,10 +153,10 @@ export default async function page({ params }: { params: { id: number } }) {
       </div>
 
       {/* Studios / Staff / Characters */}
-      <div className="grid md:grid-cols-6 gap-4">
+      <div className="grid md:grid-cols-6 gap-4 text-neutral-300">
         <div className="grid grid-cols-1 pl-16 col-span-1 w-full">
           <div className="mb-6 prose">
-            <h2 className="text-base font-normal mb-2">Studios</h2>
+            <h2 className="text-base-content font-normal mb-2">Studios</h2>
             <ul className="list-none">
               {anime.studios.edges.map((edge) => (
                 <li key={edge.node.id} className="mb-1">
@@ -164,7 +164,7 @@ export default async function page({ params }: { params: { id: number } }) {
                 </li>
               ))}
             </ul>
-            <h2 className="text-base font-normal mb-2">Staff</h2>
+            <h2 className="text-base-content font-normal mb-2">Staff</h2>
             <ul className="list-none">
               {anime.staff.edges.map((edge, index) => (
                 <li key={index} className="mb-1">
@@ -176,7 +176,7 @@ export default async function page({ params }: { params: { id: number } }) {
           <div className="mb-6 prose"></div>
         </div>
         <div className="mb-6 w-full col-span-1 md:col-span-5">
-          <h2 className="text-base font-normal mx-8 mb-4 ml-16 prose">
+          <h2 className="text-base-content font-normal mx-8 mb-4 ml-16 prose">
             Characters
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-16">

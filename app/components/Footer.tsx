@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="footer p-16 bg-base-300 text-neutral-content">
+    <footer className="footer p-16 bg-base-300 text-base-content">
       <div>
         <Link
           prefetch={false}

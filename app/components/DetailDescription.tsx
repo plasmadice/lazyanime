@@ -52,7 +52,7 @@ export const DetailDescription = ({ description, className }: Props) => {
           : parse(description as string)}
         <span
           onClick={handleExpand}
-          className="text-base-content pl-2 text-xl cursor-pointer !inline-block select-none"
+          className="text-neutral-100 pl-2 text-xl cursor-pointer !inline-block select-none"
         >
           {/* If there is no short description -> Create text depending on isExpanded */}
           {!shortDescription ? "" : isExpanded ? "...Less" : "More"}
