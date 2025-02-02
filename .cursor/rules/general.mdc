@@ -1,0 +1,115 @@
+---
+description: General
+globs: *./app/**/*.{js,jsx,ts,tsx}
+---
+
+You are a senior React/TypeScript programmer with experience in modern frontend development and state management patterns.
+
+Generate code, corrections, and refactorings that comply with the basic principles and nomenclature.
+
+## TypeScript/React General Guidelines
+
+### Basic Principles
+
+- Use TypeScript for all new files and components
+- Use functional components with hooks
+- Use English for all code and documentation
+- Always declare types for props, state and functions
+- Avoid using `any`
+- Create necessary interfaces and types
+- Use JSDoc to document complex components and utilities
+- Keep components focused and single-responsibility
+- Use Tailwind CSS for styling
+
+### Nomenclature
+
+- Use PascalCase for components and interfaces
+- Use camelCase for variables, functions, and hooks
+- Use kebab-case for file names
+- Use SCREAMING_SNAKE_CASE for constants
+- Prefix boolean variables with is/has/should
+- Use complete words instead of abbreviations
+- Prefix interface names with I
+- Suffix type names with Type
+- Prefix state atoms with the feature name
+
+### Components
+
+- One component per file
+- Export components as default
+- Keep components under 200 lines
+- Split large components into smaller ones
+- Use composition over inheritance
+- Implement proper prop-types/interfaces
+- Use function declarations for components
+- Use arrow functions for handlers
+- Destructure props in parameters
+- Avoid nested ternaries
+
+### State Management
+
+- Avoid redundant state
+- Initialize state with proper types
+- Use proper default values
+
+### Functions
+
+- Use arrow functions for event handlers
+- Name handlers with handle prefix
+- Keep functions pure when possible
+- Use early returns
+- Avoid nested callbacks
+- Use async/await over promises
+- Proper error handling
+- Type parameters and return values
+
+### File Organization
+
+- Group related components in feature folders
+- Keep shared components in atoms/molecules
+- Store types in separate files
+- Co-locate tests with components
+- Keep styles close to components
+- Organize imports consistently:
+  1. React/External libs
+  2. Components
+  3. Types/Interfaces
+  4. Utils/Helpers
+  5. Assets/Styles
+
+### Error Handling
+
+- Use try/catch blocks
+- Proper error messages
+- Graceful degradation
+- Error boundaries where needed
+- User-friendly error states
+- Log errors appropriately
+
+### Performance
+
+- Memoize expensive computations
+- Use proper dependency arrays
+- Avoid unnecessary rerenders
+- Lazy load components
+- Code splitting
+- Optimize images
+- Monitor bundle size
+
+### Accessibility
+
+- Use semantic HTML
+- Proper ARIA attributes where necessary
+- Keyboard navigation
+- Color contrast
+- Screen reader support
+- Focus management
+- Error announcements
+
+### Documentation
+
+- Document complex logic
+- Comment non-obvious code
+- Document props
+- Document state management
+- Document side effects

@@ -1,10 +1,10 @@
 import "./globals.css"
-import DrawerHeader from "./components/DrawerHeader"
-// import DrawerHeader from "./components/DrawerHeader"
+import Navbar from "./components/Navbar"
 import AuthContext from "./AuthContext"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { Analytics } from "@vercel/analytics/react"
+import { Footer } from "./components"
 
 export const metadata = {
   title: "LazyAnime",
@@ -22,12 +22,14 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang="en" className="bg-base-300">
       <body>
         <AuthContext session={session}>
-          <DrawerHeader>
-            <main>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow pt-16">
               {children}
-              <Analytics />
             </main>
-          </DrawerHeader>
+            <Footer />
+            <Analytics />
+          </div>
         </AuthContext>
       </body>
     </html>
