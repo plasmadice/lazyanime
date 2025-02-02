@@ -176,6 +176,8 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
             onKeyDown={handleKeyDown}
             onClick={handleInputClick}
             className="input border bg-neutral-300 text-neutral-700 border-gray-300 max-h-6 min-w-[200px]"
+            aria-label="Search anime"
+            role="searchbox"
           />
         </form>
         {/* Display search results */}
@@ -270,12 +272,16 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
           </div>
         ) : null}
       </div>
-      <div
-        className={`px-2 cursor-pointer${isOpen ? " hidden" : ""}`}
+      <button
+        type="button"
+        className={`px-4 py-2 flex flex-row items-center gap-2 hover:bg-base-200 rounded-lg transition-colors${isOpen ? " hidden" : ""}`}
         onClick={() => setIsOpen(true)}
+        aria-label="Open search"
+        aria-expanded={isOpen}
       >
-        <BsSearch className="text-base-content w-6 h-6" />
-      </div>
+        <BsSearch className="text-base-content w-4 h-4" aria-hidden="true" />
+        <span>Search</span>
+      </button>
     </div>
   )
 }

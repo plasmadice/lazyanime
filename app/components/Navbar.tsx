@@ -47,7 +47,7 @@ export default function Navbar() {
       {/* Navbar */}
       <div className="drawer-content flex flex-col">
         <div className="navbar !p-0 bg-base-300 fixed top-0 z-50">
-          <div className="navbar-start px-4">
+          <div className="navbar-start px-4 w-fit">
             <Link
               href="/"
               className="text-flamenco-500 text-2xl font-bold select-none"
@@ -58,7 +58,7 @@ export default function Navbar() {
           </div>
           
           {/* Desktop Navigation */}
-          <div className="navbar-end px-4">
+          <div className="navbar-end w-full px-4">
             <div className="hidden lg:flex items-center gap-2">
               <HeaderSearch />
               <HeaderLinks randomId={randomId} />

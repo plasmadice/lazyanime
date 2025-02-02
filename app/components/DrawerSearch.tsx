@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSearch } from "@hooks"
 import { useRouter } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
 
 const formatDate = (date: any): string => {
   return new Date(date?.year, date?.month - 1, date?.day).toLocaleDateString(
@@ -166,16 +167,25 @@ const DrawerSearch = ({ className, drawerRef }: Props = { className: "" }) => {
     <div className={`${className?.length ? ` ${className}` : ""} w-full px-4`}>
       <div className="relative w-full" ref={wrapperRef}>
         <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchInput}
-            ref={inputRef}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            onClick={handleInputClick}
-            className="input border border-gray-300 max-h-6 w-full"
-          />
+          <AnimatePresence>
+            <motion.div
+              initial={{ width: "32px" }}
+              animate={{ width: "100%" }}
+              exit={{ width: "32px" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchInput}
+                ref={inputRef}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                onClick={handleInputClick}
+                className="input border border-gray-300 max-h-6 w-full"
+              />
+            </motion.div>
+          </AnimatePresence>
         </form>
         {/* Display search results */}
         {loading ? (

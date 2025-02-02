@@ -25,17 +25,6 @@ const HeaderLinks = ({ randomId, isMobile }: { randomId?: number, isMobile?: boo
 
   const links = (
     <>
-      <li className={isMobile ? "w-full" : ""}>
-        <Link
-          href="/search"
-          className={linkClass}
-          prefetch={false}
-        >
-          <FiSearch className="h-5 w-5" />
-          <span>Search</span>
-        </Link>
-      </li>
-
       {randomId && (
         <li className={isMobile ? "w-full" : ""}>
           <Link
