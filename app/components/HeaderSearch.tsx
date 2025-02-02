@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { BsSearch } from "react-icons/bs"
 import { useSearch } from "@hooks"
+import { useRouter } from "next/navigation"
 
 const formatDate = (date: any): string => {
   return new Date(date?.year, date?.month - 1, date?.day).toLocaleDateString(
@@ -23,44 +24,67 @@ type Props = {
 const HeaderSearch = ({ className }: Props = { className: "" }) => {
   const [searchInput, setSearchInput] = useState("")
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1)
   const inputRef: any = useRef(null)
   const wrapperRef: any = useRef(null)
   const searchLinkRef: any = useRef(null)
+  const router = useRouter()
 
   const { data, error, isLoading: loading } = useSearch(searchInput)
   const searchResults = data?.slice(0, 5)
 
-  // const clickAwayRef = useClickAway((e: any) => {
+  // Calculate position for search results
+  const [resultsPosition, setResultsPosition] = useState<'below' | 'above'>('below')
+  
+  useEffect(() => {
+    if (!wrapperRef.current || !searchResults?.length) return
 
-  //   if (e.target?.classList?.value?.includes("header-container") ||
-  //   e.target.tagName === "HEADER") {
-  //     console.log('inputRef', inputRef)
-  //     setIsOpen(true)
-  //   } else {
-  //     setIsOpen(false);
-  //   }
-    
-  // });
+    const updatePosition = () => {
+      const rect = wrapperRef.current.getBoundingClientRect()
+      const spaceBelow = window.innerHeight - rect.bottom
+      const spaceAbove = rect.top
+      const resultsHeight = 400 // approximate max height of results
+
+      setResultsPosition(spaceBelow >= resultsHeight || spaceBelow > spaceAbove ? 'below' : 'above')
+    }
+
+    updatePosition()
+    window.addEventListener('resize', updatePosition)
+    return () => window.removeEventListener('resize', updatePosition)
+  }, [searchResults?.length])
+
+  const resetSearch = () => {
+    setSearchInput("")
+    setIsOpen(false)
+    setSelectedIndex(-1)
+  }
+
+  const handleInputClick = () => {
+    setIsOpen(true)
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value)
+    setIsOpen(true)
+  }
 
   // Close search when clicked outside
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (
-        (wrapperRef.current && wrapperRef.current.contains(event.target)) ||
-        event.target?.classList?.value?.includes("header-container") ||
-        event.target.tagName === "HEADER"
+        wrapperRef.current && 
+        !wrapperRef.current.contains(event.target) &&
+        !event.target.closest('.menu') &&
+        !event.target?.classList?.value?.includes("header-container") &&
+        event.target.tagName !== "HEADER"
       ) {
-        setIsOpen(true)
-        // inputRef?.current?.focus()
-      } else {
         setIsOpen(false)
       }
     }
 
-    // Bind the event listener and clean up on unmount
-    document.addEventListener("click", handleClickOutside, true)
+    document.addEventListener("mousedown", handleClickOutside)
     return () => {
-      document.removeEventListener("click", handleClickOutside, true)
+      document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
 
@@ -71,23 +95,87 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
     }
   }, [isOpen])
 
+  // Handle global escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen && !e.defaultPrevented) {
+        // Only close if we're not focused on the input
+        if (document.activeElement !== inputRef.current) {
+          resetSearch()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isOpen])
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!searchResults?.length) return
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault()
+        setSelectedIndex(prev => 
+          prev < searchResults.length - 1 ? prev + 1 : prev
+        )
+        break
+      case "ArrowUp":
+        e.preventDefault()
+        setSelectedIndex(prev => (prev > -1 ? prev - 1 : -1))
+        break
+      case "Enter":
+        e.preventDefault()
+        if (selectedIndex === -1) {
+          searchLinkRef?.current?.click()
+        } else {
+          const selectedAnime = searchResults[selectedIndex]
+          if (selectedAnime) {
+            router.push(`/details/${selectedAnime.id}`)
+            resetSearch()
+          }
+        }
+        break
+      case "Escape":
+        e.preventDefault()
+        if (searchInput) {
+          // If there's text, first clear the input
+          setSearchInput("")
+          setSelectedIndex(-1)
+        } else {
+          // If input is already empty, close the search
+          resetSearch()
+        }
+        break
+    }
+  }
+
   const handleSearchSubmit = (e: any) => {
     e.preventDefault()
     searchLinkRef?.current?.click()
-    setIsOpen(false)
+    resetSearch()
+  }
+
+  const handleResultClick = () => {
+    resetSearch()
   }
 
   return (
     <div className={`${className?.length ? ` ${className}` : ""}`}>
       <div className={`relative${!isOpen ? " hidden" : ""}`} ref={wrapperRef}>
-        <form onSubmit={(e) => handleSearchSubmit(e)}>
+        <form onSubmit={handleSearchSubmit}>
           <input
             type="text"
             placeholder="Search"
             value={searchInput}
             ref={inputRef}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="input border bg-neutral-300 text-neutral-700 border-gray-300 max-h-6"
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onClick={handleInputClick}
+            className="input border bg-neutral-300 text-neutral-700 border-gray-300 max-h-6 min-w-[200px]"
           />
         </form>
         {/* Display search results */}
@@ -97,11 +185,19 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
           </div>
         ) : searchResults && searchResults.length ? (
           <div
-            className={`absolute left-0 w-full z-20${!isOpen ? " hidden" : ""}`}
+            className={`absolute w-[300px] z-20 ${
+              !isOpen ? "hidden" : ""
+            } ${
+              resultsPosition === 'above' ? 'bottom-full mb-1' : 'top-full mt-1'
+            }`}
+            style={{
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }}
           >
             <ul
               tabIndex={0}
-              className="menu shadow bg-base-300 rounded-box w-max"
+              className="menu shadow bg-base-300 rounded-box w-full max-h-[60vh] overflow-y-auto"
             >
               {searchResults.length >= 5 && (
                 <li className="text-center">
@@ -110,28 +206,33 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
                     className="text-base-content underline"
                     prefetch={false}
                     ref={searchLinkRef}
+                    onClick={handleResultClick}
                   >
                     More results for {searchInput}...
                   </Link>
                 </li>
               )}
               {/* Search result items */}
-              {searchResults.map((anime: any) => (
-                <li key={anime.id} className="max-w-md">
+              {searchResults.map((anime: any, index: number) => (
+                <li 
+                  key={anime.id} 
+                  className={`w-full ${selectedIndex === index ? "bg-base-200" : ""}`}
+                >
                   <Link
                     prefetch={false}
-                    className="grid grid-cols-8"
+                    className="grid grid-cols-8 gap-2"
                     href={`/details/${anime.id}`}
+                    onClick={handleResultClick}
                   >
                     <Image
                       width={200}
                       height={300}
                       src={anime.coverImage.medium}
                       alt="anime cover"
-                      className="max-w-[6rem] rounded-md col-span-2 p-0"
+                      className="w-full rounded-md col-span-2 aspect-[2/3] object-cover"
                     />
                     <div className="col-span-6 grid grid-rows-3">
-                      <p className="text-base-content truncate max-w-xl">
+                      <p className="text-base-content truncate max-w-full">
                         {anime?.title?.english || anime?.title?.romaji}
                       </p>
                       {anime.title.romaji &&
@@ -142,7 +243,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
                             .toLowerCase() && (
                           <h4 className="m-0 truncate">{anime.title.romaji}</h4>
                         )}
-                      <p className="text-gray-400 truncate max-w-xl">
+                      <p className="text-gray-400 truncate max-w-full">
                         {anime.averageScore} •
                         {`${anime.format}${
                           anime.format === "MOVIE"
@@ -158,7 +259,7 @@ const HeaderSearch = ({ className }: Props = { className: "" }) => {
                               }`
                         }`}
                       </p>
-                      <p className="text-gray-400 truncate max-w-xl">
+                      <p className="text-gray-400 truncate max-w-full">
                         {formatDate(anime.startDate)}
                       </p>
                     </div>

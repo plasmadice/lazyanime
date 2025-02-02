@@ -20,6 +20,7 @@ Generate code, corrections, and refactorings that comply with the basic principl
 - Use JSDoc to document complex components and utilities
 - Keep components focused and single-responsibility
 - Use Tailwind CSS for styling
+- Use pnpm to install and run packages
 
 ### Nomenclature
 

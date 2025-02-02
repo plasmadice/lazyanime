@@ -19,12 +19,12 @@ const getSession = async () => {
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getSession()
   return (
-    <html lang="en" className="bg-base-300">
-      <body>
+    <html lang="en" className="">
+      <body className="pt-16">
         <AuthContext session={session}>
           <div className="min-h-screen flex flex-col">
             <Navbar />
-            <main className="flex-grow pt-16">
+            <main className="flex-grow">
               {children}
             </main>
             <Footer />
