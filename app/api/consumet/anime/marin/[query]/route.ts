@@ -2,13 +2,14 @@ import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
 type Props = {
-  params: {
+  params: Promise<{
     query: string
-  }
+  }>
 }
 
 // http://localhost:3000/api/consumet/anime/marin/gundam?page=2
-export async function GET(request: Request, { params }: Props) {
+export async function GET(request: Request, props: Props) {
+  const params = await props.params;
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const query = params.query
 

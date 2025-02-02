@@ -2,13 +2,14 @@ import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
 type Props = {
-  params: {
+  params: Promise<{
     episodeId: string[]
-  }
+  }>
 }
 
 // This endpoint is broken in consumet. Not just me. FIXME: Maybe fix it?
-export async function GET(request: Request, { params }: Props) {
+export async function GET(request: Request, props: Props) {
+  const params = await props.params;
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const episodeId = params.episodeId.join("/")
 

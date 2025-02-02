@@ -2,12 +2,13 @@ import { NextResponse } from "next/server"
 import { ANIME } from "@consumet/extensions"
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export async function GET(request: Request, { params }: Props) {
+export async function GET(request: Request, props: Props) {
+  const params = await props.params;
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const id = params.id
 

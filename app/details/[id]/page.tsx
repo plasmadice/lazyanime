@@ -13,10 +13,11 @@ const fetchDetails = async (id: number) => {
 }
 
 type Props = {
-  params: { id: number }
+  params: Promise<{ id: number }>
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   // fetch data
 
   const anime: AnimeDetails = await fetchDetails(params.id)
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function page({ params }: { params: { id: number } }) {
+export default async function page(props: { params: Promise<{ id: number }> }) {
+  const params = await props.params;
   const anime: AnimeDetails = await fetchDetails(params.id)
 
   if (!anime) {

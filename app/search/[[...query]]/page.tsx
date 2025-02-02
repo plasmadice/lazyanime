@@ -1,16 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, use } from "react";
 import { Card } from "@components"
 import { Anime } from "@types"
 import { useSearch } from "@hooks"
 
 // Generate data for search page by modifying metadata
 type Props = {
-  params: { query: string | undefined }
+  params: Promise<{ query: string | undefined }>
 }
 
-export default function Page({ params }: Props) {
+export default function Page(props: Props) {
+  const params = use(props.params);
   const query = params.query || ""
   const [searchInput, setSearchInput] = useState<string>(decodeURI(query || ""))
 

@@ -3,12 +3,13 @@ import { ANIME } from "@consumet/extensions"
 import { StreamingServers } from "@consumet/extensions/dist/models"
 
 type Props = {
-  params: {
+  params: Promise<{
     episodeId: string
-  }
+  }>
 }
 
-export async function GET(request: Request, { params }: Props) {
+export async function GET(request: Request, props: Props) {
+  const params = await props.params;
   // Parameters from the URL path `/api/consumet/Gogoanime/[query]/route.ts`
   const episodeId = params.episodeId
 

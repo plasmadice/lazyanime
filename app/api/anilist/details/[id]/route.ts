@@ -131,12 +131,11 @@ export const details = async (id: number) => {
 
 export async function GET(
   request: Request,
-  {
-    params,
-  }: {
-    params: { id: number }
+  props: {
+    params: Promise<{ id: number }>
   }
 ) {
+  const params = await props.params;
   const results = await details(params.id)
 
   return NextResponse.json(results)
