@@ -1,6 +1,5 @@
 export enum Providers {
   AnimePahe = "animepahe",
-  Enime = "enime",
   Gogoanime = "gogoanime",
   Marin = "marin",
   Zoro = "zoro",

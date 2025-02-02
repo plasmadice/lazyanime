@@ -13,7 +13,7 @@ const fetchSpeed = async (provider: Providers) => {
 }
 
 export default async function page() {
-  const [animepahe, enime, gogoanime, marin, zoro] = await Promise.all(
+  const [animepahe, gogoanime, marin, zoro] = await Promise.all(
     (Object.keys(Providers) as Array<Providers>).map((provider) =>
       fetchSpeed(provider)
     )
