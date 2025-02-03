@@ -29,7 +29,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
               <main className="flex-grow">
                 {children}
               </main>
-              <Footer />
+              <Footer session={session} />
               <Analytics />
             </div>
           </AuthContext>

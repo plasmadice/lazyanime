@@ -1,6 +1,6 @@
 import Link from "next/link"
-
-export function Footer() {
+import { AnimeSession } from "@types"
+export function Footer({ session }: { session: AnimeSession | null }) {
   return (
     <footer className="footer p-16 bg-base-300 text-base-content">
       <div>
@@ -21,19 +21,19 @@ export function Footer() {
 
       <div>
         <span className="footer-title">Infos</span>
-        <Link
-          href={`${process.env.NEXT_PUBLIC_DISCORD_SERVER_INVITE_LINK}`}
-          target="_blank"
-          prefetch={false}
-          className="link link-hover"
-        >
-          Unlock adult content
-        </Link>
         <Link href="/" prefetch={false} className="link link-hover">
           About
         </Link>
         <Link href="/" prefetch={false} className="link link-hover">
           Contact
+        </Link>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_DISCORD_SERVER_INVITE_LINK}`}
+          target="_blank"
+          prefetch={false}
+          className={`link link-hover ${!session?.isAdult ? "text-flamenco-500" : ""}`}
+        >
+          Join Discord
         </Link>
       </div>
       {/* <div>
