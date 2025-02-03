@@ -8,7 +8,7 @@ import DiscordProvider from "next-auth/providers/discord"
 // import TwitchProvider from 'next-auth/providers/twitch'
 
 // https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes
-const scopes = ["identify", "guilds"].join(" ")
+const scopes = ["identify"].join(" ")
 
 type BattleNetIssuer =
   | "https://www.battlenet.com.cn/oauth"
@@ -53,54 +53,39 @@ export const authOptions: NextAuthOptions = {
       clientId: String(process.env.DISCORD_CLIENT_ID),
       clientSecret: String(process.env.DISCORD_CLIENT_SECRET),
       authorization: {
-        params: { scope: scopes.concat(" guilds.members.read") },
+        params: { scope: scopes },
       },
       async profile(profile, tokens) {
         let isAuthorized = false
         let isAdult = false
 
-        // Fetch the list of servers the user is a member of
-        const response = await fetch(
-          "https://discord.com/api/users/@me/guilds",
-          {
-            headers: {
-              Authorization: `Bearer ${tokens.access_token}`,
-            },
-          }
-        )
-
-        const guilds = await response.json()
-
-        // Check if the user is a member of the target server
-        const targetGuild = guilds.find(
-          (guild: any) => guild.id === process.env.DISCORD_SERVER_ID
-        )
-
-        if (targetGuild) {
-          // If the user is a member of the target server, they are authorized
-          isAuthorized = true
-
-          // Fetch the member data from our auth server
-          const memberResponse = await fetch(
-            `https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`,
+        try {
+          // Fetch the guild members using the bot token
+          const response = await fetch(
+            `https://discord.com/api/v10/guilds/${process.env.DISCORD_SERVER_ID}/members/${profile.id}`,
             {
               headers: {
-                Authorization: `Bearer ${tokens.access_token}`,
+                Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
               },
             }
           )
 
-          const memberData = await memberResponse.json()
+          if (response.ok) {
+            // If we can fetch the member data, they are in the server
+            const memberData = await response.json()
+            console.log('memberData', memberData)
+            isAuthorized = true
 
-          // Check if the member has the required role to sign in
-
-          const isAdmin = memberData.roles.includes(process.env.DISCORD_ADMIN_ROLE)
-
-          isAdult =
-            isAuthorized &&
-            memberData.roles.includes(process.env.DISCORD_ADULT_ROLE) || isAdmin
-
-          // Assign roles to profile
+            // Check for admin and adult roles
+            const isAdmin = memberData.roles.includes(process.env.DISCORD_ADMIN_ROLE)
+            console.log('isAdmin', isAdmin, memberData.roles, memberData)
+            isAdult = memberData.roles.includes(process.env.DISCORD_ADULT_ROLE) || isAdmin
+            console.log('isAdult', isAdult)
+          }
+        } catch (error) {
+          console.error('Error fetching Discord member data:', error)
+          isAuthorized = false
+          isAdult = false
         }
 
         return {
@@ -108,8 +93,8 @@ export const authOptions: NextAuthOptions = {
           name: profile.username,
           email: profile.email,
           image: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
-          isAuthorized: isAuthorized,
-          isAdult: isAdult,
+          isAuthorized,
+          isAdult,
         }
       },
     }),

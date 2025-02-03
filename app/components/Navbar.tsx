@@ -6,6 +6,7 @@ import HeaderSearch from "./HeaderSearch"
 import HeaderLinks from "./HeaderLinks"
 import DrawerSearch from "./DrawerSearch"
 import { useRandomId } from "@hooks"
+import { ThemeToggle } from "./ThemeToggle"
 
 export default function Navbar() {
   const drawerRef = useRef<HTMLLabelElement>(null)
@@ -61,6 +62,7 @@ export default function Navbar() {
           <div className="navbar-end w-full px-4">
             <div className="hidden lg:flex items-center gap-2">
               <HeaderSearch />
+              <ThemeToggle />
               <HeaderLinks randomId={randomId} />
             </div>
             
@@ -98,6 +100,7 @@ export default function Navbar() {
         <div className="menu p-4 w-80 min-h-full bg-base-100">
           <div className="mt-16 flex flex-col gap-4">
             <DrawerSearch drawerRef={drawerRef} />
+            <ThemeToggle />
             <HeaderLinks randomId={randomId} isMobile={true} />
           </div>
         </div>

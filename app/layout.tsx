@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { Analytics } from "@vercel/analytics/react"
 import { Footer } from "./components"
+import { ThemeProvider } from "./providers/ThemeProvider"
 
 export const metadata = {
   title: "LazyAnime",
@@ -19,18 +20,20 @@ const getSession = async () => {
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getSession()
   return (
-    <html lang="en" className="">
+    <html lang="en">
       <body className="pt-16">
-        <AuthContext session={session}>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-            <Analytics />
-          </div>
-        </AuthContext>
+        <ThemeProvider>
+          <AuthContext session={session}>
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+              <Analytics />
+            </div>
+          </AuthContext>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -60,7 +60,7 @@ const HeaderLinks = ({ randomId, isMobile }: { randomId?: number, isMobile?: boo
           </div>
           <span>
             {session.user?.name || "Guest"}
-            {session.isAdult ? " (adult)" : ""}
+            {session.isAdult ? "" : ""}
           </span>
         </div>
       </li>
@@ -94,17 +94,13 @@ const HeaderLinks = ({ randomId, isMobile }: { randomId?: number, isMobile?: boo
             </div>
             <span>
               {session.user?.name || "Guest"}
-              {session.isAdult ? " (adult)" : ""}
+              {session.isAdult ? "" : ""}
             </span>
           </button>
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Portal>
           <DropdownMenu.Content className="min-w-[200px] bg-base-100 rounded-lg shadow-lg p-2 z-50">
-            <DropdownMenu.Item className={dropdownItemClass} onClick={() => signOut()}>
-              <FiLogOut className="h-5 w-5" />
-              <span>Sign Out</span>
-            </DropdownMenu.Item>
 
             {process.env.NODE_ENV === "development" && (
               <DropdownMenu.Item asChild>
@@ -118,6 +114,11 @@ const HeaderLinks = ({ randomId, isMobile }: { randomId?: number, isMobile?: boo
                 </Link>
               </DropdownMenu.Item>
             )}
+
+            <DropdownMenu.Item className={dropdownItemClass} onClick={() => signOut()}>
+              <FiLogOut className="h-5 w-5" />
+              <span>Sign Out</span>
+            </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
