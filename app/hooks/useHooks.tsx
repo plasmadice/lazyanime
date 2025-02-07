@@ -112,6 +112,7 @@ export function useKeyPress(key: any, cb: any, options: any = {}) {
   });
 
   React.useEffect(() => {
+    if (!target) return;
     target.addEventListener(event, onEvent, eventOptionsRef.current);
 
     return () => {

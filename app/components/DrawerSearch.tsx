@@ -163,6 +163,12 @@ const DrawerSearch = ({ className, drawerRef }: Props = { className: "" }) => {
     return () => window.removeEventListener('resize', updatePosition)
   }, [searchResults?.length])
 
+  useEffect(() => {
+    if (isOpen) {
+      resetSearch()
+    }
+  }, [isOpen, resetSearch])
+
   return (
     <div className={`${className?.length ? ` ${className}` : ""} w-full px-4`}>
       <div className="relative w-full" ref={wrapperRef}>

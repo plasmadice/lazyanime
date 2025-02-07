@@ -3,16 +3,19 @@
 import Link from "next/link"
 import HeaderSearch from "./HeaderSearch" // has an eventListener for clicks that opens the input
 import DrawerSearch from "./DrawerSearch"
-import { Footer } from "./"
+import { Footer } from "@components"
 import HeaderLinks from "./HeaderLinks"
 import { useRandomId } from "@hooks"
 import { useRef, useState } from "react"
+import { useSession } from "next-auth/react"
+import { type AnimeSession } from "@types"
 
 const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
   const hidden = false
   const drawerRef: any = useRef(null) // Passed to drawerSearch so that we can close the drawer
   const { randomId } = useRandomId()
+  const { data: session } = useSession() as { data: AnimeSession | null }
 
   return (
     <div className="h-full drawer drawer-end relative">
@@ -68,7 +71,7 @@ const DrawerHeader = ({ children }: { children: React.ReactNode }) => {
 
         <div className="p-0 h-full bg-base-100 relative top-12">{children}</div>
 
-        <Footer />
+        <Footer session={session} />
       </div>
       <header className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay" ref={drawerRef}></label>
