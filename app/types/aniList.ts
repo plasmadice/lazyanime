@@ -104,6 +104,7 @@ export interface AnimeDetails extends Anime {
     medium: string | null
     color: string | null
   }
+  bannerImage: string | null
   type: string | null
   status: string | null
   format: string | null
@@ -111,8 +112,48 @@ export interface AnimeDetails extends Anime {
   duration: number | null
   genres: string[]
   averageScore: number | null
+  meanScore: number | null
   popularity: number | null
+  favourites: number | null
+  trending: number | null
+  rankings: {
+    id: number
+    rank: number
+    type: string
+    format: string
+    year: number | null
+    season: string | null
+    allTime: boolean
+    context: string
+  }[]
+  tags: {
+    id: number
+    name: string
+    description: string
+    rank: number
+    isMediaSpoiler: boolean
+    isGeneralSpoiler: boolean
+  }[]
+  source: string | null
+  hashtag: string | null
   siteUrl: string | null
+  season: string | null
+  seasonYear: number | null
+  streamingEpisodes: {
+    title: string
+    thumbnail: string
+    url: string
+    site: string
+  }[]
+  externalLinks: {
+    id: number
+    url: string
+    site: string
+    type: string
+    language: string | null
+    color: string | null
+    icon: string | null
+  }[]
   nextAiringEpisode: {
     airingAt: number | null
     timeUntilAiring: number | null
@@ -137,6 +178,7 @@ export interface AnimeDetails extends Anime {
         image: {
           large: string | null
         }
+        siteUrl: string | null
       }
       role: string | null
       voiceActors: {
@@ -150,6 +192,7 @@ export interface AnimeDetails extends Anime {
         image: {
           large: string | null
         }
+        siteUrl: string | null
       }[]
     }[]
   }
@@ -163,6 +206,10 @@ export interface AnimeDetails extends Anime {
           full: string | null
           native: string | null
         }
+        siteUrl: string | null
+        image: {
+          large: string | null
+        }
       }
       role: string | null
     }[]
@@ -172,6 +219,7 @@ export interface AnimeDetails extends Anime {
       node: {
         id: number
         name: string | null
+        siteUrl: string | null
       }
     }[]
   }
@@ -186,11 +234,33 @@ export interface AnimeDetails extends Anime {
         coverImage: {
           medium: string | null
         }
+        type: string | null
+        format: string | null
+        status: string | null
         averageScore: number | null
         popularity: number | null
-        type: string | null
+        siteUrl: string | null
       }
       relationType: string | null
+    }[]
+  }
+  mainStudios: {
+    edges: {
+      isMain: boolean
+      node: {
+        id: number
+        name: string | null
+        siteUrl: string | null
+      }
+    }[]
+  }
+  allStudios: {
+    edges: {
+      node: {
+        id: number
+        name: string | null
+        siteUrl: string | null
+      }
     }[]
   }
 }

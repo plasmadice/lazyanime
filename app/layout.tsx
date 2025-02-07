@@ -9,7 +9,7 @@ import { ThemeProvider } from "./providers/ThemeProvider"
 
 export const metadata = {
   title: "LazyAnime",
-  description: "Anime stuff",
+  description: "Your modern anime companion",
 }
 
 const getSession = async () => {
@@ -20,13 +20,13 @@ const getSession = async () => {
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getSession()
   return (
-    <html lang="en">
-      <body className="pt-16">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-gradient-to-b from-base-100 to-base-200 dark:from-gray-900 dark:to-gray-950">
         <ThemeProvider>
           <AuthContext session={session}>
-            <div className="min-h-screen flex flex-col">
+            <div className="flex flex-col min-h-screen">
               <Navbar />
-              <main className="flex-grow">
+              <main className="flex-grow w-full max-w-[1920px] mx-auto pt-24 pb-16">
                 {children}
               </main>
               <Footer session={session} />

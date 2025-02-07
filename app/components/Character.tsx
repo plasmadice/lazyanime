@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import type { AnimeDetails } from "@types"
 
 export function Character({
@@ -9,39 +10,54 @@ export function Character({
   className?: string
 }) {
   return (
-    <li
-      className={`flex flex-col items-center rounded-md w-auto relative${className ? ` ${className}` : ""}`}
-      style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${edge.node.image.large})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "300px", // Adjust the height as needed
-      }}
+    <div
+      className={`flex flex-col rounded-lg overflow-hidden bg-base-200 hover:bg-base-300 transition-colors${className ? ` ${className}` : ""}`}
     >
-      <div className="flex flex-col items-center mt-2 z-10">
+      <div className="relative aspect-[2/3] w-full">
         <Image
-          width={200}
-          height={300}
-          className="w-24 h-auto mb-2 rounded-md"
+          fill
+          className="object-cover"
           src={edge.node.image.large as string}
           alt={edge.node.name.full as string}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
-        <span>
-          {edge.node.name.full} ({edge.role})
-        </span>
       </div>
-      {edge.voiceActors && edge.voiceActors[0] && (
-        <div className="flex flex-col items-center mt-2 z-10">
-          <Image
-            width={200}
-            height={300}
-            className="w-16 h-auto mb-2 rounded-md"
-            src={edge.voiceActors[0].image.large as string}
-            alt={edge.voiceActors[0].name.full as string}
-          />
-          <span>{edge.voiceActors[0].name.full}</span>
+      <div className="p-4">
+        <div className="mb-4">
+          <Link
+            href={edge.node.siteUrl || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-blue-400 hover:text-blue-500"
+          >
+            {edge.node.name.full}
+          </Link>
+          <p className="text-sm opacity-70 m-0">{edge.role}</p>
         </div>
-      )}
-    </li>
+
+        {edge.voiceActors && edge.voiceActors[0] && (
+          <div className="flex items-center gap-3">
+            <Image
+              width={40}
+              height={40}
+              className="rounded-full"
+              src={edge.voiceActors[0].image.large as string}
+              alt={edge.voiceActors[0].name.full as string}
+            />
+            <div>
+              <Link
+                href={edge.voiceActors[0].siteUrl || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-400 hover:text-blue-500"
+              >
+                {edge.voiceActors[0].name.full}
+              </Link>
+              <p className="text-xs opacity-70 m-0">Voice Actor</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
